@@ -1,7 +1,8 @@
 package com.cdp.health.dto;
 
+import lombok.Data;
+
+@Data
 public class HealthDTO {
-	
-		private String name;
-		private int age;
+		
 }

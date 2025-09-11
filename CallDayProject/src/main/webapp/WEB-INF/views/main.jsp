@@ -48,15 +48,15 @@
 	
 	        <ul>
 	    
-	            <li><a href="<%=cp %>/hell/main.do">메인메뉴</a></li>
+	            <li><a href="<%=cp %>/hell/main.action">메인메뉴</a></li>
 	    
-	            <li><a href="<%=cp %>/hell/exersize.do">식단 및 운동정보</a></li>
+	            <li><a href="<%=cp %>/hell/exersize.action">식단 및 운동정보</a></li>
 	    
-	            <li><a href="<%=cp %>/hell/calendar.do">달력</a></li>
+	            <li><a href="<%=cp %>/hell/calendar.action">달력</a></li>
 	    
-	            <li><a href="<%=cp %>/hell/board.do">운동 피드</a></li>
+	            <li><a href="<%=cp %>/hell/board.action">운동 피드</a></li>
 	    
-	            <li><a href="<%=cp %>/hell/regist.do">일정등록</a></li>
+	            <li><a href="<%=cp %>/hell/regist.action">일정등록</a></li>
 	    
 	        </ul>
 	    

@@ -23,6 +23,39 @@
 	
 	<context:component-scan base-package="com.cdp.health" />
 	
+	<beans:bean id="healthDAO" class="com.cdp.health.dao.HealthDAO">
 	
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	
+	</beans:bean>
+	
+	<beans:bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	
+		<beans:constructor-arg ref="sessionFactory"/>
+	
+	</beans:bean>
+	
+	<beans:bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	
+		<beans:property name="dataSource" ref="dataSource"/>
+		
+		<beans:property name="configLocation" value="classpath:/mybatis-config.xml"/>
+	
+	</beans:bean>
+	
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+	
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		
+		<beans:property name="url" value="jdbc:oracle:thin:@192.168.0.20:1521:xe"/>
+		
+		<beans:property name="username" value="suzi"/>
+		
+		<beans:property name="password" value="a123"/>
+	
+	</beans:bean>
+	
+	<beans:bean id="myUtil" class="com.cdp.health.util.MyUtil"/>
 	
 </beans:beans>

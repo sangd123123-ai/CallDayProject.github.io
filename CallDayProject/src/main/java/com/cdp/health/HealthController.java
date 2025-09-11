@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.cdp.health.dao.HealthDAO;
 import com.cdp.health.util.MyUtil;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HealthController {
 	
