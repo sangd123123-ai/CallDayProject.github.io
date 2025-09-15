@@ -1,8 +1,8 @@
 package com.cdp.health.util;
 
-public class MyUtil {//ÆäÀÌÂ¡ Ã³¸®
+public class MyUtil {//í˜ì´ì§• ì²˜ë¦¬
 	
-	//ÀüÃ¼ ÆäÀÌÁö °¹¼ö
+	//ì „ì²´ í˜ì´ì§€ ê°¯ìˆ˜
 	public int getPageCount(int numPerPage, int dataCount) {
 		
 		int pageCount = 0;
@@ -19,7 +19,7 @@ public class MyUtil {//ÆäÀÌÂ¡ Ã³¸®
 		
 	}
 	
-	//Ajax ÆäÀÌÂ¡ Ã³¸® (ÀÚ¹Ù½ºÅ©¸³Æ®)
+	//Ajax í˜ì´ì§• ì²˜ë¦¬ (ìë°”ìŠ¤í¬ë¦½íŠ¸)
 	public String pageIndexList(int currentPage, int totalPage) {
 		
 		int numPerBlock = 5;
@@ -47,7 +47,7 @@ public class MyUtil {//ÆäÀÌÂ¡ Ã³¸®
 		if (totalPage > numPerBlock && currentPageSetup > 0) {
 			
 			strList = "<a onclick='listPage(" + currentPageSetup +
-					");'>¢¸ÀÌÀü</a>&nbsp;";
+					");'>â—€ì´ì „</a>&nbsp;";
 			
 		}
 		
@@ -74,7 +74,7 @@ public class MyUtil {//ÆäÀÌÂ¡ Ã³¸®
 		if (totalPage-currentPageSetup > numPerBlock) {
 			
 			strList += "<a onclick='listPage(" + page +
-					");'>´ÙÀ½¢º</a>&nbsp;";
+					");'>ë‹¤ìŒâ–¶</a>&nbsp;";
 			
 		}
 		
@@ -82,12 +82,12 @@ public class MyUtil {//ÆäÀÌÂ¡ Ã³¸®
 		
 	}
 	
-	//ÆäÀÌÂ¡ Ã³¸® ¸Ş¼Òµå
+	//í˜ì´ì§• ì²˜ë¦¬ ë©”ì†Œë“œ
 	public String pageIndexList(int currentPage, int totalPage, String listUrl) {
 		
-		int numPerBlock = 5; //ÆäÀÌÁö°¡ º¸¿©Áö´Â °¹¼ö
+		int numPerBlock = 5; //í˜ì´ì§€ê°€ ë³´ì—¬ì§€ëŠ” ê°¯ìˆ˜
 		
-		int currentPageSetup;//ÇöÀç º¸¿©Áö°í ÀÖ´Â ÆäÀÌÁö¸®½ºÆ®ÀÇ Àü
+		int currentPageSetup;//í˜„ì¬ ë³´ì—¬ì§€ê³  ìˆëŠ” í˜ì´ì§€ë¦¬ìŠ¤íŠ¸ì˜ ì „
 		
 		int page;
 		
@@ -101,7 +101,7 @@ public class MyUtil {//ÆäÀÌÂ¡ Ã³¸®
 		
 		//list.jsp
 		//list.jsp?searchKey=name&searchValue=30
-		if (listUrl.indexOf("?")!=-1) {//°Ë»ö
+		if (listUrl.indexOf("?")!=-1) {//ê²€ìƒ‰
 			
 //			listUrl = listUrl + "&";
 			listUrl += "&";
@@ -113,7 +113,7 @@ public class MyUtil {//ÆäÀÌÂ¡ Ã³¸®
 			
 		}
 		
-		//ÀÌÀüÀÇ pageNum
+		//ì´ì „ì˜ pageNum
 		currentPageSetup = (currentPage/numPerBlock)*numPerBlock;
 		
 		if (currentPage % numPerBlock == 0) {
@@ -122,15 +122,15 @@ public class MyUtil {//ÆäÀÌÂ¡ Ã³¸®
 			
 		}
 		
-		//ÀÌÀü¸µÅ©
+		//ì´ì „ë§í¬
 		if (totalPage>numPerBlock && currentPageSetup>0) {
 			
 			sb.append("<a href=\"" + listUrl + "pageNum=" + currentPageSetup 
-					+ "\">¢¸ÀÌÀü</a>&nbsp;");
+					+ "\">â—€ì´ì „</a>&nbsp;");
 			
 		}
 		
-		//¹Ù·Î°¡±â ÆäÀÌÁö
+		//ë°”ë¡œê°€ê¸° í˜ì´ì§€
 		page = currentPageSetup + 1;
 		while (page<=totalPage && page<=(currentPageSetup+numPerBlock)) {
 			
@@ -150,11 +150,11 @@ public class MyUtil {//ÆäÀÌÂ¡ Ã³¸®
 			
 		}
 		
-		//´ÙÀ½¸µÅ©
+		//ë‹¤ìŒë§í¬
 		if (totalPage - currentPageSetup > numPerBlock) {
 			
 			sb.append("<a href=\"" + listUrl + "pageNum=" + page
-					+ "\">´ÙÀ½¢º</a>&nbsp;");
+					+ "\">ë‹¤ìŒâ–¶</a>&nbsp;");
 			
 		}
 		
