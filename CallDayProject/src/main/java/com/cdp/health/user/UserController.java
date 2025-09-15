@@ -36,7 +36,7 @@ public class UserController {
 				.equals(userCreateForm.getPassword2())) {
 			
 			bindingResult.rejectValue("password2", "passwordInCorrect",
-					"2°³ÀÇ ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù");
+					"2ê°œì˜ íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
 			
 			return "signup_form";			
 		}
@@ -50,7 +50,7 @@ public class UserController {
 		
 		}catch(DataIntegrityViolationException e) {
 			
-			bindingResult.reject("signupFailed","ÀÌ¹Ì µî·ÏµÈ »ç¿ëÀÚÀÔ´Ï´Ù");
+			bindingResult.reject("signupFailed","ì´ë¯¸ ë“±ë¡ëœ ì‚¬ìš©ìì…ë‹ˆë‹¤");
 			
 			return "signup_form";
 			

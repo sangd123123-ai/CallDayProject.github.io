@@ -23,8 +23,8 @@ public class UserService {
 		user.setUserName(userName);
 		user.setEmail(email);
 		
-		//ºñ¹Ð¹øÈ£ ¾ÏÈ£È­
-		//BCryptÇØ½Ì ÇÔ¼ö
+		//ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™”
+		//BCryptí•´ì‹± í•¨ìˆ˜
 		//BCryptPasswordEncoder passwordEncoder = 
 		//		new BCryptPasswordEncoder();
 		user.setPassword(passwordEncoder.encode(password));		

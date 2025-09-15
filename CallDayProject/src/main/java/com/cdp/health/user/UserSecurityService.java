@@ -23,12 +23,12 @@ public class UserSecurityService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		
-		//»ç¿ëÀÚÀÌ¸§À¸·Î SiteUser °´Ã¼¸¦ Á¶È¸
+		//ì‚¬ìš©ìì´ë¦„ìœ¼ë¡œ SiteUser ê°ì²´ë¥¼ ì¡°íšŒ
 		Optional<SiteUser> searchUser = 
 				userRepository.findByUserName(userName);
 		
 		if(!searchUser.isPresent()) {
-			throw new UsernameNotFoundException("»ç¿ëÀÚ¸¦ Ã£À»¼ö ¾ø½À´Ï´Ù");			
+			throw new UsernameNotFoundException("ì‚¬ìš©ìë¥¼ ì°¾ì„ìˆ˜ ì—†ìŠµë‹ˆë‹¤");			
 		}
 		
 		SiteUser siteUser = searchUser.get();
@@ -42,14 +42,9 @@ public class UserSecurityService implements UserDetailsService{
 			authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
 		}
 		
-		//»ç¿ëÀÚ¸í,ºñ¹Ğ¹øÈ£,±ÇÇÑÀ» ½ºÇÁ¸µ ½ÃÅ¥¸®Æ¼ÀÇ User°´Ã¼·Î »ı¼ºÇØ¼­ ¸®ÅÏ
+		//ì‚¬ìš©ìëª…,ë¹„ë°€ë²ˆí˜¸,ê¶Œí•œì„ ìŠ¤í”„ë§ ì‹œíë¦¬í‹°ì˜ Userê°ì²´ë¡œ ìƒì„±í•´ì„œ ë¦¬í„´
 		return new User(siteUser.getUserName(),
 				siteUser.getPassword(), authorities);
 	}
-	
-	
-	
-	
-	
 	
 }

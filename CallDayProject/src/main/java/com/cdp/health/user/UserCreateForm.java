@@ -12,16 +12,16 @@ import lombok.Setter;
 public class UserCreateForm {
 
 	@Size(min = 3,max = 25)
-	@NotEmpty(message = "»ç¿ëÀÚ ÀÌ¸§Àº ÇÊ¼öÇ×¸ñÀÔ´Ï´Ù")
+	@NotEmpty(message = "ì‚¬ìš©ì ì´ë¦„ì€ í•„ìˆ˜í•­ëª©ì…ë‹ˆë‹¤")
 	private String userName;
 	
-	@NotEmpty(message = "ºñ¹Ğ¹øÈ£´Â ÇÊ¼öÇ×¸ñÀÔ´Ï´Ù")
+	@NotEmpty(message = "ë¹„ë°€ë²ˆí˜¸ëŠ” í•„ìˆ˜í•­ëª©ì…ë‹ˆë‹¤")
 	private String password1;
 	
-	@NotEmpty(message = "ºñ¹Ğ¹øÈ£ È®ÀÎÀº ÇÊ¼öÇ×¸ñÀÔ´Ï´Ù")
+	@NotEmpty(message = "ë¹„ë°€ë²ˆí˜¸ í™•ì¸ì€ í•„ìˆ˜í•­ëª©ì…ë‹ˆë‹¤")
 	private String password2;
 	
-	@NotEmpty(message = "ÀÌ¸ŞÀÏÀº ÇÊ¼öÇ×¸ñÀÔ´Ï´Ù")
+	@NotEmpty(message = "ì´ë©”ì¼ì€ í•„ìˆ˜í•­ëª©ì…ë‹ˆë‹¤")
 	@Email
 	private String email;
 	
