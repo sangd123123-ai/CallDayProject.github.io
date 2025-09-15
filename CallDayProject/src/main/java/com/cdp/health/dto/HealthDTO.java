@@ -1,8 +1,15 @@
 package com.cdp.health.dto;
 
-import lombok.Data;
+import javax.persistence.Entity;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
 public class HealthDTO {
-		
+	
+	
+	
 }
