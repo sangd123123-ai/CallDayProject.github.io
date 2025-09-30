@@ -1,3 +1,3 @@
 # CallDayProject.github.io
 
-![홈 화면 초기 상태](/ppt/프로젝트 메인.JPG "Home initial state")
+![프로젝트 메인](/ppt/프로젝트%20메인.JPG "메인 화면")
