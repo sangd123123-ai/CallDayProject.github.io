@@ -1,0 +1,1081 @@
+@charset "UTF-8";
+/* ==========================================================
+  calendar.clean.css — 깔끔/가벼움/스코프드(전역 충돌 방지)
+  적용법: <body class="calendar-page"> … 또는 최상위 래퍼에 동일 클래스
+========================================================== */
+
+/* ---------- 기본 변수 (라이트) ---------- */
+.calendar-page{
+  /* 컬러 */
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --ink: #0b1324;
+  --muted: #6b7280;
+  --border: #e6eaf0;
+  --shadow: 0 1px 2px rgba(16,24,40,.08), 0 6px 20px rgba(16,24,40,.06);
+
+  /* 포커스/포인트 */
+  --accent: #6366f1;            /* 인디고 */
+  --accent-600:#4f46e5;
+  --accent-700:#4338ca;
+
+  /* 보조 */
+  --success:#16a34a;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --info:#0ea5e9;
+
+  /* 버튼 */
+  --btn-fg:#1f2353; 
+  --btn-bg:#eef2ff; 
+  --btn-bd:#c7d2fe; 
+  --btn-bg-hover:#e0e7ff;
+
+  /* 치수 */
+  --radius: 14px;
+  --gap: 20px;
+
+  /* 레이아웃 */
+  --col-left: 360px;            /* 왼쪽 날짜/리스트 폭 */
+  --page-max: 1480px;
+}
+
+/* ---------- 다크 테마 ---------- */
+.calendar-page[data-theme="dark"]{
+  --bg:#0e1220; --surface:#12172a; 
+  --ink:#eef2ff; --muted:#9aa3b2; 
+  --border:#202842; 
+  --shadow: 0 8px 30px rgba(2,6,23,.45);
+  --btn-fg:#e5e7ff; --btn-bg:#192040; --btn-bd:#263060; --btn-bg-hover:#1f2950;
+}
+
+/* ---------- 페이지 베이스 ---------- */
+.calendar-page *{ box-sizing:border-box; }
+.calendar-page a{ color:inherit; text-decoration:none; }
+.calendar-page{ background:var(--bg); color:var(--ink); }
+
+/* ---------- 헤더 영역 ---------- */
+.calendar-page .calendar-header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin:24px auto 8px; max-width:var(--page-max); padding:0 16px;
+}
+.calendar-page .calendar-header .title{
+  font-size:26px; font-weight:800; letter-spacing:.2px; white-space:nowrap;
+}
+.calendar-page .meta{
+  max-width:var(--page-max); padding:0 16px;
+  color:var(--muted); font-size:13px;
+}
+
+.calendar-page .schedule-list .name{
+  flex: 1 1 160px;   /* 남는 공간을 좀 더 가져가게 */
+  min-width: 120px;  /* 최소 폭 안전장치 */
+}
+
+.calendar-page .schedule-list .chip{
+  flex: 1 1 100px;   /* 남는 공간을 좀 더 가져가게 */
+  min-width: 80px;  /* 최소 폭 안전장치 */
+}
+
+.calendar-page .schedule-list .event { display: flex; } /* 이미 되어있으면 생략 */
+
+.calendar-page .schedule-list .app-complete{
+  margin-left: auto;   /* 이 한 줄이 핵심! */
+}
+
+/* 화살표는 버튼 바로 뒤에 살짝 간격만 */
+.calendar-page .schedule-list .event::after{
+  content: "›";
+  margin-left: 8px;
+  /* 필요하면 살짝 더 키워도 됨: font-size: 18px; */
+}
+
+/* ---------- 상단 컨트롤(이전/오늘/다음/이동) ---------- */
+.calendar-page .controls{
+  display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;
+  max-width:var(--page-max); margin:0 auto 18px; padding:0 16px;
+}
+.calendar-page .controls .btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:42px; padding:0 14px; border-radius:10px; border:1px solid var(--btn-bd);
+  background:var(--btn-bg); color:var(--btn-fg); font-weight:600; cursor:pointer;
+  transition:.2s ease;
+}
+.calendar-page .controls .btn:hover{ background:var(--btn-bg-hover); transform:translateY(-1px); box-shadow:var(--shadow); }
+.calendar-page .controls .btn--nav{ width:84px; background:var(--accent); border-color:var(--accent); color:#fff; }
+.calendar-page .controls .btn--nav:hover{ background:var(--accent-600); }
+.calendar-page .controls .btn--ghost{ width:56px; background:#fff; border-color:var(--border); }
+.calendar-page[data-theme="dark"] .controls .btn--ghost{ background:#0f1530; }
+
+/* 날짜 이동 폼 */
+.calendar-page .jump-form{ display:inline-flex; gap:8px; }
+.calendar-page .jump-form input[type="date"]{
+  height:42px; padding:0 10px; border:1px solid var(--border); border-radius:10px;
+  background:var(--surface); color:inherit; transition:border-color .2s, box-shadow .2s;
+}
+.calendar-page .jump-form input[type="date"]:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 25%, transparent); }
+.calendar-page .jump-form .btn{ background:#6b7280; border-color:#6b7280; color:#fff; }
+.calendar-page .jump-form .btn:hover{ background:#525760; }
+
+/* ---------- 2열 레이아웃 ---------- */
+.calendar-page #calendarForm > .container{
+  display:grid; grid-template-columns: var(--col-left) minmax(0,1fr);
+  column-gap:32px; align-items:start; max-width:var(--page-max); margin:0 auto; padding:0 16px;
+}
+
+/* 왼쪽: 주간(요일) 리스트 */
+.calendar-page .week-vertical{ display:block; margin:0; padding:0; }
+.calendar-page details.day-card{
+  border:1px solid var(--border); border-radius:var(--radius); background:var(--surface);
+  overflow:hidden; transition: box-shadow .15s, transform .05s, border-color .2s; 
+}
+.calendar-page details.day-card + details.day-card{ margin-top:10px; }
+.calendar-page details.day-card:hover{ transform:translateY(-1px); box-shadow:var(--shadow); }
+.calendar-page summary.day-summary{
+  list-style:none; display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px; cursor:pointer;
+}
+.calendar-page summary.day-summary::-webkit-details-marker{ display:none; }
+.calendar-page .day-title{ font-weight:800; }
+.calendar-page .muted{ color:var(--muted); font-size:12px; }
+.calendar-page .today summary.day-summary{ outline:2px solid color-mix(in oklab, var(--accent) 55%, white); outline-offset:-2px; border-radius:var(--radius); }
+.calendar-page .day-body{ padding:12px 14px; border-top:1px solid var(--border); }
+
+/* 왼쪽 리스트 안의 일정 행 */
+.calendar-page .schedule-list{ list-style:none; padding:0; margin:8px 0 0; }
+.calendar-page .schedule-list .event{
+  position:relative; display:flex; align-items:center; gap:10px; height:48px;
+  padding:10px 14px; border:1px solid var(--border); border-radius:12px;
+  background: color-mix(in oklab, var(--accent) 6%, var(--surface));
+  transition: box-shadow .15s, transform .05s, border-color .2s;
+}
+.calendar-page .schedule-list .event + .event{ margin-top:8px; }
+.calendar-page .schedule-list .event:hover{ transform:translateY(-1px); box-shadow:var(--shadow); border-color:color-mix(in oklab, var(--accent) 40%, var(--border)); }
+.calendar-page .schedule-list .chip{
+  display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 10px;
+  border-radius:9999px; font-size:12px; font-weight:700;
+  background: color-mix(in oklab, var(--accent) 14%, #eef2ff);
+  color: color-mix(in oklab, var(--accent) 80%, black);
+  flex:0 0 60px;
+}
+.calendar-page .schedule-list .name{ flex:0 0 60px; color:var(--muted); }
+.calendar-page .schedule-list .subject{ flex:0 0 80px; font-weight:700; }
+.calendar-page .schedule-list .meta{ flex:0 0 120px; color:var(--muted); font-size:12px; }
+.calendar-page .schedule-list .content{
+  flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.calendar-page .schedule-list .event::after{ content:"›"; margin-left:8px; font-size:18px; color:#9aa7b2; }
+
+/* ---------- 완료 버튼(칩 스타일) ---------- */
+.app-complete{
+  --bg1:#fff; --bg2:#f7f9ff; --fg:var(--ink);
+  display:inline-block; padding:8px 14px; border-radius:9999px;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  border:1px solid var(--border); color:var(--fg); font-weight:700;
+  box-shadow:var(--shadow); transition:.2s ease; white-space:nowrap;
+}
+.app-complete:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(16,24,40,.12); }
+.app-complete:focus-visible{ outline:3px solid color-mix(in oklab, var(--accent) 35%, transparent); outline-offset:2px; }
+.app-complete .icon-check{ display:inline-block; width:18px; height:18px; margin-right:6px; color:var(--muted); }
+.app-complete.is-done{
+  --bg1: color-mix(in oklab, var(--accent) 18%, #fff);
+  --bg2: color-mix(in oklab, var(--accent) 30%, #eef2ff);
+  color: color-mix(in oklab, var(--accent) 85%, black);
+  border-color: color-mix(in oklab, var(--accent) 50%, var(--border));
+}
+.calendar-page .schedule-list .event.is-done{ opacity:.78; }
+
+.calendar-page .cdp-note__title{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.calendar-page .cdp-pin{ font-size:22px; transform:translateY(1px); }
+.calendar-page .cdp-badge{
+  display:inline-block; padding:4px 10px; border-radius:9999px; font-size:12px; font-weight:700;
+  background: color-mix(in oklab, var(--accent) 12%, #eef2ff);
+  border:1px solid color-mix(in oklab, var(--accent) 38%, white);
+  color: color-mix(in oklab, var(--accent) 80%, black);
+}
+.calendar-page .cdp-badge--done{
+  background: color-mix(in oklab, var(--success) 15%, #eafff0);
+  border-color: color-mix(in oklab, var(--success) 45%, white);
+  color: color-mix(in oklab, var(--success) 75%, black);
+}
+.calendar-page .cdp-meta{
+  display:grid; gap:10px 18px; margin:14px 0 6px; grid-template-columns:1fr 1fr;
+}
+.calendar-page .cdp-meta__row{ display:grid; grid-template-columns:160px 1fr; align-items:baseline;}
+.calendar-page .cdp-meta dt{ font-weight:800; color:var(--muted); display:flex; align-items:center; gap:6px; }
+.calendar-page .cdp-meta dd{ margin:0; }
+.calendar-page .cdp-note__label{ font-weight:800; color:var(--muted); margin-top:12px; }
+.calendar-page #scheduleArea{ position:relative; padding-bottom:84px; }
+.calendar-page .cdp-note__content{
+  margin-top:10px; background: color-mix(in oklab, var(--accent) 8%, #ffffff);
+  border:1px solid color-mix(in oklab, var(--accent) 22%, var(--border));
+  border-radius:12px; padding:12px 14px; line-height:1.6;
+}
+
+/* 상세 액션 버튼(우하단 고정) */
+.calendar-page .article-actions{
+  position:absolute; right:22px; bottom:22px; display:flex; gap:10px; z-index:5;
+}
+.calendar-page .btn-edit, .calendar-page .btn-delete{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  padding:10px 14px; border-radius:10px; font-weight:700; cursor:pointer; transition:.2s;
+  color:#fff; border:0;
+}
+.calendar-page .btn-edit{ background:#4285f4; box-shadow:0 2px 4px rgba(66,133,244,.35); }
+.calendar-page .btn-edit:hover{ background:#3367d6; transform:translateY(-1px); }
+.calendar-page .btn-delete{ background:#ea4335; box-shadow:0 2px 4px rgba(234,67,53,.35); }
+.calendar-page .btn-delete:hover{ background:#d23125; transform:translateY(-1px); }
+
+/* 빈 상태 */
+.schedule-empty{
+  display:grid; place-items:center; gap:6px; padding:40px 12px;
+  border:1px dashed var(--border); border-radius:12px; background: color-mix(in oklab, var(--accent) 6%, var(--surface));
+}
+.schedule-empty__icon{ font-size:28px; opacity:.9; }
+.schedule-empty__title{ font-weight:800; }
+.schedule-empty__sub{ font-size:13px; color:var(--muted); }
+
+/* ---------- 반응형 ---------- */
+@media (max-width:1100px){
+  .calendar-page #calendarForm > .container{ grid-template-columns:1fr; row-gap:20px; }
+}
+@media (max-width:720px){
+  .calendar-page .calendar-header{ flex-direction:column; align-items:flex-start; }
+  .calendar-page .controls{ justify-content:flex-start; }
+  .calendar-page .cdp-meta{ grid-template-columns:1fr; }
+  .calendar-page .schedule-list .chip,
+  .calendar-page .schedule-list .name,
+  .calendar-page .schedule-list .meta{ display:none; }
+  .calendar-page .schedule-list .subject{ font-weight:800; }
+  .calendar-page .jump-form{ width:100%; }
+  .calendar-page .jump-form input[type="date"]{ flex:1 1 auto; min-width:0; }
+}
+
+/* ====== HOTFIX: 기존 마크업 호환 레이아웃 ====== */
+/* 1) 페이지 스코프(없어도 동작하지만 있으면 충돌 예방) */
+body.calendar-page{ background:var(--bg, #f7f8fb); color:var(--ink, #0b1324); }
+
+/* 2) 2열 컨테이너: .calendar-layout 이 있으면 그걸 쓰고,
+      없으면 #calendarForm 바로 아래 첫 컨테이너를 유연 플렉스로 전환 */
+.calendar-layout,
+#calendarForm > .container{
+  display:flex;
+  align-items:flex-start;
+  gap:32px;
+  max-width:1480px;
+  margin:0 auto;
+  padding:0 16px;
+  flex-wrap:nowrap; /* 줄바꿈 방지 */
+}
+
+/* 3) 왼쪽/오른쪽 컬럼 지정: 현탁이 마크업 클래스 그대로 매핑 */
+.week-vertical{ 
+  flex:0 0 360px;   /* 고정폭 */
+  max-width:360px;
+  min-width:300px;
+}
+.calendar-detail{
+  flex:1 1 auto;    /* 가변 */
+  min-width:0;      /* 텍스트 말줄임 허용 */
+}
+
+/* 4) 카드/리스트 외곽선만 입히고 내부 레이아웃은 건드리지 않음(깨짐 방지) */
+.week-vertical > *{
+  background:#fff;
+  border:1px solid #e6eaf0;
+  border-radius:14px;
+  padding:0; 
+  box-shadow:0 1px 2px rgba(16,24,40,.08), 0 6px 20px rgba(16,24,40,.06);
+}
+.week-vertical > * + *{ margin-top:12px; }
+
+/* 요일 줄(기존 구조 보존) */
+.week-vertical .day, 
+.week-vertical li, 
+.week-vertical .list-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px; border-top:1px solid #eef2f7; background:#fff;
+}
+.week-vertical .day:first-child,
+.week-vertical li:first-child,
+.week-vertical .list-row:first-child{ border-top:0; }
+
+/* 일정 아이템이 .event 구조면 살짝 강조만 */
+.week-vertical .event{
+  margin:8px 12px; padding:10px 12px;
+  border:1px solid #e6eaf0; border-radius:12px; background:#fafbff;
+}
+
+/* “완료됨” 같은 배지 기본 스타일만 부여(색만, 배치/구조는 그대로) */
+.calendar-detail .badge,
+.calendar-detail .완료, 
+.calendar-detail .cdp-badge,
+.calendar-detail .app-complete{
+  display:inline-block; padding:6px 10px; border-radius:9999px;
+  background:#eafff0; color:#0b6b2f; border:1px solid #bff0cf; font-weight:700;
+}
+
+/* 액션 버튼(수정/삭제)은 기본 버튼만 고급화 – 위치는 기존 그대로 */
+.calendar-detail .btn, 
+.calendar-detail button{
+  border-radius:10px; padding:10px 14px; border:1px solid #c7d2fe;
+  background:#eef2ff; color:#1f2353; font-weight:700; cursor:pointer;
+  transition:.15s ease;
+}
+.calendar-detail .btn:hover, 
+.calendar-detail button:hover{ background:#e0e7ff; }
+
+/* 삭제 버튼만 경고색 */
+.calendar-detail .btn-danger{ background:#fee2e2; border-color:#fecaca; color:#991b1b; }
+.calendar-detail .btn-danger:hover{ background:#fecaca; }
+
+/* 반응형 – 폭 줄면 세로 스택 */
+@media (max-width: 1100px){
+  .calendar-layout,
+  #calendarForm > .container{ flex-direction:column; }
+  .week-vertical{ max-width:100%; flex:1 1 auto; }
+}
+
+/* ===== 상단 이동 버튼 공통 ===== */
+.calendar-page .btn-group{                    /* (선택) 묶음 컨테이너 */
+  display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+}
+
+.calendar-page .link-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:42px; padding:0 14px;
+  border-radius:10px; border:1px solid var(--btn-bd, #c7d2fe);
+  background:var(--btn-bg, #eef2ff); color:var(--btn-fg, #1f2353);
+  font-weight:700; text-decoration:none; cursor:pointer;
+  transition:background-color .18s ease, transform .06s ease, box-shadow .18s ease, border-color .18s ease;
+  box-shadow:0 1px 2px rgba(16,24,40,.06);
+}
+.calendar-page .link-btn:hover{
+  background:var(--btn-bg-hover, #e0e7ff);
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(16,24,40,.12);
+}
+.calendar-page .link-btn:active{ transform:translateY(0); }
+.calendar-page .link-btn:focus-visible{
+  outline:3px solid color-mix(in oklab, var(--accent, #6366f1) 35%, transparent);
+  outline-offset:2px;
+}
+
+/* 비활성 표시(앵커는 disabled가 없으니 아래 셋 중 하나로) */
+.calendar-page .link-btn.is-disabled,
+.calendar-page .link-btn[aria-disabled="true"],
+.calendar-page .link-btn.disabled{
+  pointer-events:none; opacity:.5; filter:saturate(.6);
+}
+
+/* ===== 변형: 주요/보조 ===== */
+/* 주 버튼: 이전주/다음주 */
+.calendar-page .link-btn.btn-nav{
+  background:var(--accent, #6366f1); border-color:var(--accent, #6366f1); color:#fff;
+}
+.calendar-page .link-btn.btn-nav:hover{ background:var(--accent-600, #4f46e5); }
+.calendar-page .link-btn.btn-nav:active{ background:var(--accent-700, #4338ca); }
+
+/* 보조 버튼: 오늘 */
+.calendar-page .link-btn.btn-compact{
+  background:#fff; border-color:var(--border, #e6eaf0); color:#374151;
+}
+.calendar-page .link-btn.btn-compact:hover{ background:#f3f4f6; }
+
+/* 다크 테마 보정 */
+.calendar-page[data-theme="dark"] .link-btn.btn-compact{
+  background:#0f1530; border-color:#263060; color:#e5e7ff;
+}
+.calendar-page[data-theme="dark"] .link-btn.btn-compact:hover{ background:#182047; }
+
+/* 아이콘(« ») 간격 보정 – 텍스트와 붙지 않게 */
+.calendar-page .link-btn .ico{ display:inline-block; transform:translateY(-1px); }
+.calendar-page .link-btn .ico--left{ margin-right:4px; }
+.calendar-page .link-btn .ico--right{ margin-left:4px; }
+
+/* ===== RESET: 이전 배경 패치 제거 ===== */
+#calendarForm #scheduleArea::before,
+#calendarForm #scheduleArea::after{ content:none !important; }
+
+/* 버튼 정렬이 배경 위에서 붕 뜨지 않도록 공백 조금 */
+#calendarForm #scheduleArea .article-actions,
+#calendarForm #scheduleArea .btn-row{ margin-top: 10px; }
+
+/* === 오른쪽 배경 강화(높이↑, 색감↑) === */
+
+#calendarForm #scheduleArea > .cdp-note::before{
+  content:""; position:absolute; left:14px; right:14px; top:10px; height:80px;
+  pointer-events:none; border-radius:12px;
+  background:linear-gradient(180deg, #7aa7ff33, transparent 55%);
+}
+
+/* BUTTON • POP */
+#calendarForm .btn, #calendarForm button.btn{
+  height: 42px; padding: 0 16px; border-radius: 12px;
+  font-weight: 800; letter-spacing:.2px;
+}
+#calendarForm .btn-primary, 
+#calendarForm .btn:where(.btn-edit, .btn-save), 
+#calendarForm button:where(.btn-edit, .btn-save){
+  background:#3c64ff; border-color:#3c64ff; color:#fff;
+  box-shadow:0 6px 18px rgba(60,100,255,.28);
+}
+#calendarForm .btn-primary:hover,
+#calendarForm .btn:where(.btn-edit, .btn-save):hover{
+  background:#2f56ee;
+}
+
+/* 삭제 버튼 강화 */
+#calendarForm .btn-danger{
+  background:#ff5f5f; border-color:#ff5f5f; color:#fff;
+  box-shadow:0 6px 18px rgba(255,95,95,.28);
+}
+#calendarForm .btn-danger:hover{ filter:brightness(1.05); }
+
+/* ==========================================================
+  다크 모드 최적화 - 캘린더 CSS
+========================================================== */
+
+/* ---------- 다크 테마 변수 재정의 ---------- */
+.calendar-page[data-theme="dark"]{
+  --bg: #0a0e1a;              /* 더 진한 베이스 */
+  --surface: #1a1f2e;         /* 카드 배경 */
+  --ink: #e8ecf7;             /* 메인 텍스트 */
+  --muted: #9ca3af;           /* 보조 텍스트 */
+  --border: #2d3748;          /* 경계선 */
+  --shadow: 0 8px 32px rgba(0,0,0,.35);
+  
+  /* 액센트 색상 조정 */
+  --accent: #5b7cff;          /* 더 밝은 블루 */
+  --accent-600: #4f6ae5;
+  --accent-700: #4461d1;
+  
+  /* 버튼 다크 모드 */
+  --btn-fg: #e8ecf7;
+  --btn-bg: #252b3d;
+  --btn-bd: #374151;
+  --btn-bg-hover: #2d3748;
+}
+
+/* ---------- 다크 모드 기본 설정 ---------- */
+.calendar-page[data-theme="dark"] {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.calendar-page[data-theme="dark"] details.day-card:hover {
+  border-color: rgba(91, 124, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(0,0,0,.35),
+    0 0 0 1px rgba(91, 124, 255, 0.2) inset;
+}
+
+/* ---------- 오른쪽 배경 영역 최적화 ---------- */
+#calendarForm #scheduleArea {
+  background:
+    radial-gradient(320px 240px at 75% 12%, rgba(138, 163, 255, 0.08), transparent 60%),
+    radial-gradient(420px 280px at 88% 85%, rgba(201, 210, 255, 0.06), transparent 65%),
+    radial-gradient(360px 260px at 50% 92%, rgba(159, 217, 204, 0.05), transparent 60%),
+    linear-gradient(135deg, #f9fafb 0%, #f4f6f9 100%);
+  
+  padding: 36px;
+  min-height: 680px;
+  border-radius: 20px;
+  
+  box-shadow:
+    0 16px 48px rgba(15,23,42,.08),
+    inset 0 1px 0 rgba(255,255,255,.6),
+    inset 0 -1px 0 rgba(15,23,42,.04);
+  
+  /* 미묘한 테두리 */
+  border: 1px solid rgba(138, 163, 255, 0.12);
+}
+
+/* 카드 상단 글로우 효과 */
+#calendarForm #scheduleArea > .cdp-note::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 12px;
+  height: 60px;
+  pointer-events: none;
+  border-radius: 14px;
+  background: linear-gradient(180deg, 
+    rgba(138, 163, 255, 0.12) 0%, 
+    rgba(138, 163, 255, 0.06) 50%, 
+    transparent 100%);
+}
+
+/* ---------- 내용 영역 개선 ---------- */
+.calendar-page .cdp-note__content {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #fafbfc 0%, #f6f8fb 100%);
+  border: 1px solid rgba(138, 163, 255, 0.18);
+  border-radius: 14px;
+  padding: 16px 18px;
+  line-height: 1.6;
+  color: #374151;
+  font-size: 14px;
+  
+  /* 미묘한 내부 그림자로 깊이감 */
+  box-shadow: 
+    inset 0 1px 2px rgba(15,23,42,.04),
+    inset 0 0 0 1px rgba(255,255,255,.8);
+}
+
+/* 포커스나 활성 상태 */
+.calendar-page .cdp-note__content:hover {
+  border-color: rgba(138, 163, 255, 0.25);
+  box-shadow: 
+    inset 0 1px 2px rgba(15,23,42,.06),
+    inset 0 0 0 1px rgba(255,255,255,.9),
+    0 0 0 2px rgba(138, 163, 255, 0.08);
+}
+
+/* ---------- 텍스트 색상 최적화 ---------- */
+.calendar-page .cdp-note h3,
+.calendar-page .day-title {
+  color: #1f2937;
+}
+
+.calendar-page .cdp-meta dt {
+  color: #6b7280;
+}
+
+.calendar-page .cdp-meta dd {
+  color: #374151;
+}
+
+.calendar-page .cdp-note__label {
+  color: #6b7280;
+  font-weight: 700;
+  font-size: 13px;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+/* ---------- 배지 스타일 ---------- */
+.calendar-page[data-theme="dark"] .cdp-badge {
+  background: rgba(91, 124, 255, 0.2);
+  border-color: rgba(91, 124, 255, 0.4);
+  color: #a5b4fc;
+}
+
+.calendar-page[data-theme="dark"] .cdp-badge--done {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+}
+
+/* ---------- 버튼 최적화 ---------- */
+.calendar-page[data-theme="dark"] .btn-edit,
+.calendar-page[data-theme="dark"] .btn:where(.btn-edit, .btn-save) {
+  background: linear-gradient(135deg, #5b7cff 0%, #4f6ae5 100%);
+  border: 1px solid rgba(91, 124, 255, 0.3);
+  color: #ffffff;
+  box-shadow: 
+    0 8px 24px rgba(91, 124, 255, 0.25),
+    0 0 0 1px rgba(91, 124, 255, 0.1) inset;
+}
+
+.calendar-page[data-theme="dark"] .btn-edit:hover {
+  background: linear-gradient(135deg, #6d84ff 0%, #5b70e8 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 12px 32px rgba(91, 124, 255, 0.35),
+    0 0 0 1px rgba(91, 124, 255, 0.2) inset;
+}
+
+.calendar-page[data-theme="dark"] .btn-delete,
+.calendar-page[data-theme="dark"] .btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ffffff;
+  box-shadow: 
+    0 8px 24px rgba(239, 68, 68, 0.25),
+    0 0 0 1px rgba(239, 68, 68, 0.1) inset;
+}
+
+.calendar-page[data-theme="dark"] .btn-delete:hover {
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 12px 32px rgba(239, 68, 68, 0.35),
+    0 0 0 1px rgba(239, 68, 68, 0.2) inset;
+}
+
+/* ---------- 일정 리스트 아이템 ---------- */
+.calendar-page[data-theme="dark"] .schedule-list .event {
+  background: rgba(26, 31, 46, 0.8);
+  border: 1px solid rgba(91, 124, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.calendar-page[data-theme="dark"] .schedule-list .event:hover {
+  border-color: rgba(91, 124, 255, 0.4);
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+}
+
+.calendar-page[data-theme="dark"] .schedule-list .chip {
+  background: rgba(91, 124, 255, 0.2);
+  color: #a5b4fc;
+  border: 1px solid rgba(91, 124, 255, 0.3);
+}
+
+/* ---------- 완료 버튼 ---------- */
+.calendar-page[data-theme="dark"] .app-complete {
+  background: linear-gradient(180deg, rgba(37, 43, 61, 0.9), rgba(45, 55, 72, 0.9));
+  border: 1px solid rgba(91, 124, 255, 0.2);
+  color: #e2e8f0;
+}
+
+.calendar-page[data-theme="dark"] .app-complete.is-done {
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.3));
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+}
+
+/* ---------- 빈 상태 ---------- */
+.calendar-page[data-theme="dark"] .schedule-empty {
+  background: rgba(26, 31, 46, 0.6);
+  border: 1px dashed rgba(91, 124, 255, 0.3);
+  color: #94a3b8;
+}
+
+.calendar-page[data-theme="dark"] .schedule-empty__title {
+  color: #e2e8f0;
+}
+
+/* ---------- 상단 컨트롤 버튼 다크 모드 ---------- */
+.calendar-page[data-theme="dark"] .link-btn {
+  background: var(--btn-bg) !important;
+  border-color: var(--btn-bd) !important;
+  color: var(--btn-fg) !important;
+}
+
+.calendar-page[data-theme="dark"] .link-btn:hover {
+  background: var(--btn-bg-hover) !important;
+}
+
+.calendar-page[data-theme="dark"] .link-btn.btn-nav {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #ffffff !important;
+}
+
+.calendar-page[data-theme="dark"] .link-btn.btn-nav:hover {
+  background: var(--accent-600) !important;
+}
+
+/* ---------- 입력 필드 ---------- */
+.calendar-page[data-theme="dark"] input[type="date"] {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--ink) !important;
+}
+
+.calendar-page[data-theme="dark"] input[type="date"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(91, 124, 255, 0.2);
+}
+
+/* ---------- 애니메이션 추가 ---------- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+#calendarForm[data-theme="dark"] #scheduleArea::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(91, 124, 255, 0.03),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 8s infinite;
+  pointer-events: none;
+  border-radius: 20px;
+}
+
+/* CONTENT AREA – Soft Indigo */
+#scheduleArea .cdp-note__content{
+  background: linear-gradient(135deg, #f6f8ff 0%, #eef2ff 100%);
+  border: 1px solid #dfe5ff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #1f2937;
+  box-shadow: inset 0 1px 2px rgba(15,23,42,.04);
+}
+#scheduleArea .cdp-note__content:hover{
+  border-color:#cfd8ff;
+  box-shadow:
+    inset 0 1px 2px rgba(15,23,42,.06),
+    0 0 0 2px rgba(111, 132, 255, .08);
+}
+
+/* Dark mode harmony */
+.calendar-page[data-theme="dark"] #scheduleArea .cdp-note__content{
+  background: linear-gradient(135deg, #151a29 0%, #121724 100%);
+  border: 1px solid rgba(123, 146, 255, .25);
+  color:#e5e7eb;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
+}
+
+/* 2) 버튼 행을 문서 흐름으로 복귀 + 우측 정렬 */
+#scheduleArea .article-actions,
+#scheduleArea .btn-row,
+#scheduleArea .actions{
+  position: static !important;     /* absolute/fixed 제거 */
+  inset: auto !important;          /* 남아있을 수 있는 top/right/bottom/left 무효화 */
+  display: flex; gap: 10px;
+  justify-content: flex-end;       /* 우측 정렬 */
+  align-self: stretch;             /* 카드 폭과 동일 */
+  margin-top: 12px;                /* 내용과 간격 */
+  padding: 0 6px 4px 6px;          /* 좌우 살짝 여유 */
+}
+
+/* 3) 내용 영역과 간격 확보(겹침 방지) */
+#scheduleArea .cdp-note__content{
+  margin-bottom: 6px;              /* 버튼과 간격 */
+}
+
+/* 4) 혹시 남아있는 z-index/float 영향 차단(드문 케이스 대비) */
+#scheduleArea .article-actions *,
+#scheduleArea .btn-row *{ z-index: 1; }
+#scheduleArea .article-actions, 
+#scheduleArea .btn-row{ float: none !important; clear: both; }
+
+/* 상단 헤더 은은한 하이라이트 밴드 */
+#scheduleArea > .cdp-note::before,
+#scheduleArea > .calendar-article::before,
+#scheduleArea > .detail-card::before{
+  content: "";
+  position: absolute; left: 12px; right: 12px; top: 10px; height: 86px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(122, 167, 255, .16), transparent 65%);
+  pointer-events: none;
+}
+
+/* 메타 정보 구역(운동부위~운동날짜) 아래에 섹션 구분선 */
+#scheduleArea .cdp-meta{
+  position: relative;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+#scheduleArea .cdp-meta::after{
+  content:""; position:absolute; left:-6px; right:-6px; bottom:-2px; height:1px;
+  background: linear-gradient(90deg, #e7ecf7 0, #eef2fb 40%, transparent 80%);
+}
+
+/* “내용” 라벨과 입력영역 사이도 살짝 띄우고 라운드 정렬 */
+#scheduleArea .cdp-note__label{ margin-top: 6px; margin-bottom: 6px; }
+
+/* 내용 입력 박스(인풋 컨테이너) – 카드 톤과 어울리게 */
+#scheduleArea .cdp-note__content{
+  background: linear-gradient(135deg, #f6f8ff 0%, #eef2ff 100%);
+  border: 1px solid #dfe5ff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #1f2937;
+  box-shadow: inset 0 1px 2px rgba(15,23,42,.04);
+}
+
+/* 버튼 행이 카드 모서리와 맞물려 보이도록 살짝 띄우기 */
+#scheduleArea .article-actions, 
+#scheduleArea .btn-row{ margin-top: 14px; }
+
+#scheduleArea > .cdp-note{ --card-bg-2:#f2fbf8; --card-ring:#bfeee5; }
+
+/* BIG CARD inner background – soft surface */
+#scheduleArea > .cdp-note,
+#scheduleArea > .calendar-article,
+#scheduleArea > .detail-card{
+  /* 완전 흰색 대신 아주 옅은 표면색 + 상단 하이라이트 */
+  --surface-1: #fcfdff;         /* 본문 */
+  --surface-2: #f7f9ff;         /* 헤더 쪽 은은한 톤 */
+  background:
+    linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 14%); /* NEW */
+  border-color:#e6ecf8;         /* 테두리 유지 */
+  box-shadow: 0 10px 30px rgba(15,23,42,.10);  /* 살짝 정리 */
+}
+
+/* 섹션 구분선도 더 자연스럽게 */
+#scheduleArea .cdp-meta::after{
+  background: linear-gradient(90deg, #e9eef8 0, #eef2fb 45%, transparent 85%);
+}
+
+/* 내용 입력 박스는 카드 톤과 더 어울리게 조금만 밝게 */
+#scheduleArea .cdp-note__content{
+  background: linear-gradient(135deg, #f7f9ff 0%, #eef3ff 100%);
+  border: 1px solid #dfe5ff;
+}
+
+/* === BIG CARD 최종 오버라이드 (바탕 톤 교체) === */
+#calendarForm #scheduleArea > .cdp-note,
+#calendarForm #scheduleArea > .calendar-article,
+#calendarForm #scheduleArea > .detail-card{
+  /* 완전 흰색 대신 은은한 표면 톤 + 상단 그라데이션 */
+  background:
+    linear-gradient(180deg, #f3f6fc 0%, #fcfdff 14%) !important;
+  border: 1px solid #e6ecf8 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(15,23,42,.10) !important;
+  padding: 18px 18px 20px !important;
+}
+
+/* 헤더 쪽 하이라이트 밴드(은은) */
+#calendarForm #scheduleArea > .cdp-note::before,
+#calendarForm #scheduleArea > .calendar-article::before,
+#calendarForm #scheduleArea > .detail-card::before{
+  content:""; position:absolute; left:12px; right:12px; top:10px; height:86px;
+  border-radius:12px;
+  background:linear-gradient(180deg, rgba(122,167,255,.16), transparent 65%);
+  pointer-events:none;
+}
+
+/* 섹션 구분선(메타 아래) */
+#calendarForm #scheduleArea .cdp-meta{ position:relative; padding-bottom:8px; margin-bottom:10px; }
+#calendarForm #scheduleArea .cdp-meta::after{
+  content:""; position:absolute; left:-6px; right:-6px; bottom:-2px; height:1px;
+  background:linear-gradient(90deg,#e9eef8 0,#eef2fb 45%,transparent 85%);
+}
+
+body a.link-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:40px; padding:0 16px; border-radius:14px;
+  border:1px solid var(--bd);
+  box-shadow: 0 2px 3px rgba(15,23,42,.06), 0 8px 18px rgba(15,23,42,.06);
+  color:#334155; font-weight:800; letter-spacing:.2px; transition:.15s ease;
+}
+body a.link-btn:hover{ transform:translateY(-1px); box-shadow:0 8px 18px rgba(15,23,42,.12); }
+body a.link-btn:active{ transform:translateY(0); }
+
+body a.link-btn.btn-nav{
+  border-color:var(--nav); color:#fff;
+  box-shadow: 0 2px 3px rgba(58,100,255,.35), 0 10px 22px rgba(58,100,255,.25);
+}
+body a.link-btn.btn-nav:hover{ background:linear-gradient(180deg, var(--nav-600), var(--nav)); }
+
+body a.link-btn.btn-compact{
+  border-color:var(--bd); color:#3a3f51;
+}
+
+.controls input[type="date"]{
+  height:40px; padding:0 12px; border-radius:12px; border:1px solid var(--bd);
+  color:var(--ink);
+}
+.controls button, .calendar-header button, input[type="submit"]{
+  height:40px; padding:0 16px; border-radius:12px;
+  color:#fff; font-weight:800;
+  box-shadow:0 8px 18px rgba(17,24,39,.25);
+}
+
+/* ====== COLOR-ONLY OVERRIDES (shape 그대로) ====== */
+/* 맘껏 바꿔 쓸 팔레트 변수 */
+:root{
+  --btn-primary:        #3a64ff; /* submit 기본 */
+  --btn-primary-hover:  #2f52ee;
+
+  --nav-primary:        #10b981; /* «이전주/다음주» */
+  --nav-primary-hover:  #0e9f75;
+
+	--nav-compact-bg:     #ffffff; /* '오늘' 같은 보조 버튼 */
+	--nav-compact-border: #e7eaf0;
+	--nav-compact-text:   #334155;
+}
+
+/* submit/기타 버튼: 색만 교체(모양 유지) */
+.controls button,
+.calendar-header button,
+input[type="submit"]{
+  background: var(--btn-primary) !important;
+  border-color: var(--btn-primary) !important;
+  color:#fff !important;
+}
+.controls button:hover,
+.calendar-header button:hover,
+input[type="submit"]:hover{
+  background: var(--btn-primary-hover) !important;
+}
+
+/* nav 버튼(«이전주/다음주») 색만 교체 */
+body a.link-btn.btn-nav{
+  background: linear-gradient(180deg,
+              color-mix(in oklab, var(--nav-primary) 92%, #fff),
+              var(--nav-primary)) !important;
+  border-color: var(--nav-primary) !important;
+  color:#fff !important;
+}
+body a.link-btn.btn-nav:hover{
+  background: linear-gradient(180deg, var(--nav-primary-hover), var(--nav-primary)) !important;
+}
+
+/* 이동 버튼만 별도 팔레트 적용 */
+#calendarForm .controls .jump-form .btn{
+  background: var(--jump) !important;
+  border-color: var(--jump) !important;
+  color:#fff !important;
+}
+#calendarForm .controls .jump-form .btn:hover{
+  background: var(--jump-hover) !important;
+}
+
+#calendarForm #scheduleArea{
+  min-height: calc(100vh - 220px); /* 헤더/상단컨트롤 높이에 맞춰 수치 조절 */
+}
+
+#calendarForm #scheduleArea::after{
+  content:"";
+  position:absolute; left:16px; right:16px; bottom:12px; height:56px;
+  border-radius:14px;
+  background:linear-gradient(0deg, rgba(122,167,255,.10), transparent 70%);
+  pointer-events:none;
+}
+
+/* ===== Calendar Add Button (pastel blue) ===== */
+/* 토큰 */
+:root{
+  --cal-blue-300:#bfdbfe;
+  --cal-blue-400:#93c5fd;
+  --cal-blue-500:#86b7fe;   /* 기본 */
+  --cal-blue-600:#74a6fc;   /* hover/active */
+  --cal-blue-ring: rgba(134,183,254,.45);
+  --cal-blue-shadow: rgba(134,183,254,.25);
+  --cal-text-dark:#0b1320;
+}
+
+/* 베이스 */
+.calendar-page .cal_add_btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:.625rem 1rem;
+  border-radius:999px;
+  border:1px solid transparent;
+  font-weight:600; font-size:14px; line-height:1;
+  text-decoration:none; cursor:pointer; user-select:none;
+  transition:transform .06s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease, color .2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 20px rgba(0,0,0,.08);
+}
+.calendar-page .cal_add_btn:focus{ outline:none; }
+.calendar-page .cal_add_btn:focus-visible{
+  box-shadow: 0 0 0 4px var(--cal-blue-ring), 0 10px 24px var(--cal-blue-shadow);
+}
+.calendar-page .cal_add_btn:active{ transform: translateY(1px); }
+
+/* 타입: Primary(채움) / Ghost(반투명) / Outline(테두리) */
+.calendar-page .cal_add_btn--primary{
+  background: var(--cal-blue-500);
+  color: var(--cal-text-dark);
+  border:1px solid var(--cal-blue-400);
+  box-shadow: 0 1px 2px rgba(0,0,0,.03), 0 6px 20px var(--cal-blue-shadow);
+}
+.calendar-page .cal_add_btn--primary:hover{ background: var(--cal-blue-600); }
+.calendar-page .cal_add_btn--primary:active{ background:#6c9efb; }
+
+.calendar-page .cal_add_btn--ghost{
+  background:#ffffff;
+  color:#1e3a8a; /* 네이비 텍스트 */
+  border:1px solid var(--cal-blue-300);
+}
+.calendar-page .cal_add_btn--ghost:hover{
+  background: rgba(147,197,253,.18);
+}
+
+.calendar-page .cal_add_btn--outline{
+  background: transparent;
+  color:#2563eb;
+  border:1px solid var(--cal-blue-400);
+}
+.calendar-page .cal_add_btn--outline:hover{
+  background: rgba(147,197,253,.16);
+}
+
+/* 크기 */
+.calendar-page .cal_add_btn--sm{ padding:.5rem .75rem; font-size:13px; }
+.calendar-page .cal_add_btn--lg{ padding:.75rem 1.25rem; font-size:15px; }
+
+/* 아이콘 */
+.calendar-page .cal_add_btn .i{ font-style:normal; display:inline-block; line-height:1; }
+.calendar-page .cal_add_btn .i.plus{ font-weight:700; transform: translateY(-1px); }
+
+/* 아이콘 전용 버튼 */
+.calendar-page .cal_add_btn--icon{
+  padding:.5rem; width:36px; height:36px; border-radius:999px;
+}
+
+/* 공통 토큰 (파스텔 블루와 잘 어울리는 그림자) */
+:root{
+  --btn-ambient: rgba(16, 24, 40, .10);   /* 넓게 퍼지는 환경광 */
+  --btn-contact: rgba(16, 24, 40, .20);   /* 바닥 접촉 그림자 */
+  --btn-highlight: rgba(255, 255, 255, .55); /* 윗면 하이라이트 */
+  --btn-press: inset 0 2px 4px rgba(0,0,0,.12); /* 눌림감 */
+}
+
+/* 1) Elevated: 레이어드 쉐도우 + 호버 리프트 */
+.calendar-page .cal_add_btn--elevated{
+  transform: translateY(0);
+  box-shadow:
+    0 1px 2px var(--btn-contact),
+    0 6px 18px var(--btn-ambient);
+  position: relative;
+}
+.calendar-page .cal_add_btn--elevated:hover{
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 6px var(--btn-contact),
+    0 14px 28px var(--btn-ambient);
+}
+.calendar-page .cal_add_btn--elevated:active{
+  transform: translateY(0);
+  box-shadow:
+    0 1px 2px var(--btn-contact),
+    0 6px 14px var(--btn-ambient),
+    var(--btn-press);
+}
+
+/* 윗면 살짝 반짝이는 하이라이트 */
+.calendar-page .cal_add_btn--elevated::before{
+  content:"";
+  position:absolute; inset:0;
+  border-radius:inherit;
+  background: linear-gradient(180deg, var(--btn-highlight), transparent 40%);
+  mix-blend-mode: soft-light;
+  pointer-events:none;
+  opacity:.35;
+}
+
+/* 2) Neumorph: 파스텔 카드 위에 살짝 솟은 느낌 (밝은 배경 권장) */
+.calendar-page .cal_add_btn--neumorph{
+  background: var(--cal-blue-500);
+  color: var(--cal-text-dark);
+  border: 1px solid rgba(255,255,255,.4);
+  box-shadow:
+    8px 8px 18px rgba(134,183,254,.35),   /* 아래쪽 진한 그림자 */
+    -6px -6px 14px rgba(255,255,255,.60); /* 위쪽 밝은 그림자 */
+}
+.calendar-page .cal_add_btn--neumorph:hover{
+  box-shadow:
+    10px 10px 22px rgba(134,183,254,.38),
+    -8px -8px 16px rgba(255,255,255,.65);
+}
+.calendar-page .cal_add_btn--neumorph:active{
+  /* 눌렸을 때는 안쪽으로 들어가는 인셋 그림자 */
+  box-shadow:
+    inset 6px 6px 12px rgba(134,183,254,.35),
+    inset -6px -6px 12px rgba(255,255,255,.65);
+}
+
+/* 접근성: 모션 민감 사용자 배려 */
+@media (prefers-reduced-motion: reduce){
+  .calendar-page .cal_add_btn{ transition: none; }
+  .calendar-page .cal_add_btn--elevated,
+  .calendar-page .cal_add_btn--neumorph{ transform: none; }
+}

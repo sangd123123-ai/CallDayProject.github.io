@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cdp.health.mapper.CalendarMapper">
+
+	<select id="getReadDataCalendar" parameterType="map" resultType="com.cdp.health.dto.CalendarDTO">
+	
+		select calNum,calSubject,calContent,calPart,calName, leadTime, calDate, user_Id, 
+		CASE WHEN NVL(CALCHECK,'N') = 'Y' THEN 1 ELSE 0 END AS calCheck 
+		from calendar
+		where calNum=#{calNum} and user_Id=#{userId}
+	
+	</select>
+	
+	<select id="getByDateRange" parameterType="map" resultType="com.cdp.health.dto.CalendarDTO">
+	    
+		SELECT calNum, calSubject, calContent, calPart, calName,
+		leadTime, calDate, user_id, CASE WHEN NVL(CALCHECK,'N') = 'Y' 
+		THEN 1 ELSE 0 END AS calCheck FROM calendar WHERE user_id = #{userId}
+		AND calDate BETWEEN #{startDate} AND #{endDate}
+		ORDER BY calDate ASC
+	    
+	</select>
+	
+	<delete id="deleteDataCalendar" parameterType="map">
+		
+		delete calendar where calNum=#{calNum} and user_Id=#{userId}
+	
+	</delete>
+
+</mapper>

@@ -1,0 +1,474 @@
+
+        /* Clean Dark Variables */
+        :root {
+            --exex-dark-bg: #0f1419;
+            --exex-dark-card: #1e2328;
+            --exex-dark-surface: #2a2d34;
+            --exex-primary: #4a90e2;
+            --exex-secondary: #7c3aed;
+            --exex-accent: #10b981;
+            --exex-warning: #f59e0b;
+            --exex-gradient-primary: linear-gradient(135deg, #4a90e2 0%, #7c3aed 100%);
+            --exex-gradient-accent: linear-gradient(135deg, #10b981 0%, #4a90e2 100%);
+            --exex-glass-bg: rgba(30, 35, 40, 0.8);
+            --exex-glass-border: rgba(74, 144, 226, 0.2);
+            --exex-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --exex-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+            --exex-text-primary: #f8fafc;
+            --exex-text-secondary: #cbd5e1;
+            --exex-text-muted: #94a3b8;
+            --exex-border-radius: 12px;
+            --exex-transition: all 0.2s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--exex-dark-bg) !important;
+            color: var(--exex-text-primary) !important;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+            min-height: 100vh !important;
+        }
+
+        .content-container {
+            padding: 1rem !important;
+            min-height: calc(100vh - 120px) !important;
+        }
+
+        .exex-fitness-container {
+            display: grid !important;
+            grid-template-columns: 320px 1fr !important;
+            gap: 1.5rem !important;
+            max-width: 1300px !important;
+            margin: 0 auto !important;
+            align-items: start !important;
+        }
+
+        /* Left Sidebar - Compact */
+        .exex-calorie-sidebar {
+            background: var(--exex-glass-bg) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1px solid var(--exex-glass-border) !important;
+            border-radius: var(--exex-border-radius) !important;
+            padding: 1.5rem !important;
+            box-shadow: var(--exex-shadow) !important;
+           
+            top: 1rem !important;
+            transition: var(--exex-transition) !important;
+        }
+
+        .exex-calorie-sidebar:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: var(--exex-shadow-hover) !important;
+        }
+
+        .exex-calc-header {
+            text-align: center !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        .exex-calc-header img {
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50% !important;
+            margin-bottom: 0.75rem !important;
+        }
+
+        .exex-calc-title {
+            font-size: 1.2rem !important;
+            font-weight: 700 !important;
+            color: var(--exex-text-primary) !important;
+            margin-bottom: 0.25rem !important;
+        }
+
+        .exex-calc-subtitle {
+            font-size: 0.85rem !important;
+            color: var(--exex-text-secondary) !important;
+        }
+
+        .exex-calorie-display {
+            background: var(--exex-gradient-primary) !important;
+            border-radius: var(--exex-border-radius) !important;
+            padding: 1.5rem 1rem !important;
+            text-align: center !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        .exex-calorie-number {
+            font-size: 2.5rem !important;
+            font-weight: 900 !important;
+            color: white !important;
+            line-height: 1 !important;
+        }
+
+        .exex-calorie-unit {
+            font-size: 0.9rem !important;
+            color: rgba(255, 255, 255, 0.9) !important;
+            margin-top: 0.25rem !important;
+            font-weight: 600 !important;
+        }
+
+        .exex-calc-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 0.75rem !important;
+            background: rgba(74, 144, 226, 0.1) !important;
+            border: 1px solid rgba(74, 144, 226, 0.2) !important;
+            border-radius: 8px !important;
+            margin-bottom: 0.5rem !important;
+            transition: var(--exex-transition) !important;
+        }
+
+        .exex-calc-row:hover {
+            background: rgba(74, 144, 226, 0.15) !important;
+            transform: translateX(3px) !important;
+        }
+
+        .exex-calc-label {
+            font-size: 0.85rem !important;
+            color: var(--exex-text-secondary) !important;
+            font-weight: 500 !important;
+        }
+
+        .exex-calc-value {
+            font-size: 0.85rem !important;
+            color: var(--exex-primary) !important;
+            font-weight: 600 !important;
+        }
+
+        .exex-alert {
+            background: var(--exex-gradient-accent) !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 0.75rem !important;
+            color: white !important;
+            font-size: 0.8rem !important;
+            text-align: center !important;
+            margin-top: 1rem !important;
+        }
+
+        /* Right Form - Compact */
+        .exex-main-form {
+            background: var(--exex-glass-bg) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(124, 58, 237, 0.2) !important;
+            border-radius: var(--exex-border-radius) !important;
+            padding: 2rem !important;
+            box-shadow: var(--exex-shadow) !important;
+        }
+
+        .exex-form-header {
+            text-align: center !important;
+            margin-bottom: 2rem !important;
+        }
+
+        .exex-form-header h1 {
+            font-size: 2rem !important;
+            font-weight: 800 !important;
+            background: var(--exex-gradient-primary) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .exex-form-header p {
+            color: var(--exex-text-secondary) !important;
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+        }
+
+        .exex-exercise-section,
+        .exex-time-section,
+        .exex-input-row,
+        .exex-input-group {
+            margin-bottom: 2rem !important;
+        }
+
+        .exex-input-group label {
+            display: block !important;
+            font-size: 1rem !important;
+            font-weight: 600 !important;
+            color: var(--exex-text-primary) !important;
+            margin-bottom: 0.75rem !important;
+        }
+
+        /* Category Grid - Compact */
+        .exex-category-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 0.75rem !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        .exex-category-card {
+            background: var(--exex-dark-card) !important;
+            border: 2px solid rgba(74, 144, 226, 0.2) !important;
+            border-radius: var(--exex-border-radius) !important;
+            padding: 1rem 0.75rem !important;
+            text-align: center !important;
+            cursor: pointer !important;
+            transition: var(--exex-transition) !important;
+        }
+
+        .exex-category-card:hover {
+            transform: translateY(-3px) !important;
+            border-color: var(--exex-primary) !important;
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.2) !important;
+        }
+
+        .exex-category-card.selected {
+            background: var(--exex-gradient-primary) !important;
+            border-color: transparent !important;
+            
+            transform: translateY(-3px) !important;
+        }
+
+        .exex-category-card img {
+            width: 40px !important;
+            height: 40px !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+    
+
+        .exex-category-name {
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            color: var(--exex-text-primary) !important;
+        }
+
+    
+
+        /* Exercise Types - Compact */
+        .exex-exercise-types {
+            opacity: 0 !important;
+            max-height: 0 !important;
+            overflow: hidden !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .exex-exercise-types.show {
+            opacity: 1 !important;
+            max-height: 300px !important;
+        }
+
+        .exex-exercise-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+            gap: 0.75rem !important;
+            margin-top: 0.75rem !important;
+        }
+
+        .exex-exercise-option {
+            background: var(--exex-dark-surface) !important;
+            border: 2px solid rgba(16, 185, 129, 0.2) !important;
+            border-radius: 8px !important;
+            padding: 1rem 0.75rem !important;
+            text-align: center !important;
+            cursor: pointer !important;
+            transition: var(--exex-transition) !important;
+        }
+
+        .exex-exercise-option:hover {
+            transform: translateY(-2px) !important;
+            border-color: var(--exex-accent) !important;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2) !important;
+        }
+
+        .exex-exercise-option.selected {
+            background: var(--exex-gradient-accent) !important;
+            border-color: transparent !important;
+            color: white !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .exex-exercise-name {
+            font-size: 0.9rem !important;
+            font-weight: 600 !important;
+            margin-bottom: 0.25rem !important;
+            color: var(--exex-text-primary) !important;
+        }
+
+        .exex-exercise-option.selected .exex-exercise-name {
+            color: white !important;
+        }
+
+        .exex-exercise-met {
+            font-size: 0.75rem !important;
+            color: var(--exex-text-muted) !important;
+            font-weight: 500 !important;
+        }
+
+        .exex-exercise-option.selected .exex-exercise-met {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        /* Time Buttons - Compact */
+        .exex-time-buttons {
+        
+            display: flex !important;
+            gap: 0.75rem !important;
+            flex-wrap: nowrap !important;
+        }
+
+        .exex-time-btn {
+        	width: 100px;
+            background: var(--exex-dark-card) !important;
+            border: 2px solid rgba(124, 58, 237, 0.2) !important;
+            border-radius: 20px !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: var(--exex-transition) !important;
+            font-size: 0.85rem !important;
+            color: var(--exex-text-primary) !important;
+        }
+
+        .exex-time-btn:hover {
+            border-color: var(--exex-secondary) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .exex-time-btn.selected {
+            background: var(--exex-secondary) !important;
+            border-color: transparent !important;
+            color: white !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .exex-custom-time {
+            opacity: 0 !important;
+            max-height: 0 !important;
+            overflow: hidden !important;
+            transition: all 0.3s ease !important;
+            margin-top: 0.75rem !important;
+            width: 100% !important;
+            white-space: nowrap !important;    /* 줄바꿈 금지 */
+        }
+
+        .exex-custom-time.show {
+        	display: inline-flex !important;
+            opacity: 1 !important;
+            max-height: 50px !important;
+            white-space: nowrap !important;    /* 줄바꿈 금지 */
+        }
+
+        .exex-custom-time input {
+            width: 200px !important;
+            padding: 0.75rem !important;
+            border: 2px solid rgba(74, 144, 226, 0.2) !important;
+            border-radius: 8px !important;
+            background: var(--exex-dark-card) !important;
+            color: var(--exex-text-primary) !important;
+            font-size: 0.9rem !important;
+            transition: var(--exex-transition) !important;
+        }
+
+        .exex-custom-time input:focus {
+            outline: none !important;
+            border-color: var(--exex-primary) !important;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1) !important;
+        }
+
+        /* Form Inputs - Compact */
+        .exex-input-row {
+            display: grid !important;
+            grid-template-columns: 2fr 1fr !important;
+            gap: 1.5rem !important;
+        }
+
+        .exex-input,
+        .exex-textarea {
+            width: 100% !important;
+            padding: 0.75rem !important;
+            border: 2px solid rgba(124, 58, 237, 0.2) !important;
+            border-radius: 8px !important;
+            background: var(--exex-dark-card) !important;
+            color: var(--exex-text-primary) !important;
+            font-size: 0.9rem !important;
+            transition: var(--exex-transition) !important;
+        }
+
+        .exex-input:focus,
+        .exex-textarea:focus {
+            outline: none !important;
+            border-color: var(--exex-secondary) !important;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1) !important;
+        }
+
+        .exex-textarea {
+            resize: vertical !important;
+            min-height: 80px !important;
+        }
+
+        /* Submit Button - Clean */
+        .exex-submit-btn {
+            width: 100% !important;
+            background: var(--exex-gradient-primary) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 12px !important;
+            padding: 1rem 2rem !important;
+            font-size: 1rem !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+            transition: var(--exex-transition) !important;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3) !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        .exex-submit-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4) !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .exex-fitness-container {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            
+            .exex-calorie-sidebar {
+                position: relative !important;
+                top: 0 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .exex-category-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .exex-input-row {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .exex-time-buttons {
+                flex-direction: column !important;
+            }
+            
+            .exex-main-form {
+                padding: 1.5rem !important;
+            }
+            
+            .content-container {
+                padding: 0.5rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exex-category-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .exex-exercise-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }

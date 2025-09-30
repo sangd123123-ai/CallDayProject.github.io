@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+/* ============================= */
+/* Navbar (네비게이션) */
+/* ============================= */
+.navbar {
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand {
+  color: #fff !important;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  margin-right: 20px;
+  transition: color 0.3s;
+}
+.navbar .nav-link:hover {
+  color: #ffd700 !important;
+}
+
+.navbar .btn {
+  font-size: 0.9rem;
+  padding: 6px 14px;
+}
+
+.navbar .btn-login {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+.navbar .btn-login:hover {
+  background: #fff;
+  color: #333;
+}
+
+.navbar .btn-signup {
+  background: #ffd700;
+  color: #333;
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.navbar .btn-signup:hover {
+  background: #e6c200;
+  color: #000;
+}

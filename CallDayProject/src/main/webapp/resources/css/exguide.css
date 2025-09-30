@@ -1,0 +1,491 @@
+@charset "UTF-8";
+
+/* 다크 테마 변수만 추가 */
+:root{
+    --eg-drawer-w: 400px;
+    --eg-ink: #f8fafc;
+    --eg-muted: #64748b;
+    --eg-border: #334155;
+    --eg-brand: #6366f1;
+    
+    /* 다크 배경 추가 */
+    --bg-dark: #0f172a;
+    --surface-dark: #1e293b;
+}
+
+/* 호환성 별칭 */
+:root{
+    --drawer-w: var(--eg-drawer-w);
+    --ink: var(--eg-ink);
+    --muted: var(--eg-muted);
+    --border: var(--eg-border);
+    --brand: var(--eg-brand);
+}
+
+html, body {
+    height: 100%;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #374151 100%);
+    background-attachment: fixed;
+}
+
+body {
+    margin: 0;
+    color: var(--eg-ink);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Noto Sans KR, Pretendard, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #374151 100%);
+    background-attachment: fixed;
+}
+
+.stage {
+    width: 100%;
+}
+
+/* Hide old overlay panel if present */
+.side-panel {
+    display: none !important;
+}
+
+/* Layout */
+.layout {
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.drawer {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--eg-drawer-w);
+    transform: translateX(-100%);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(55, 65, 81, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(99, 102, 241, 0.3);
+    z-index: 30;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transition: transform .28s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.layout.open .drawer {
+    transform: translateX(0);
+}
+
+.drawer-head {
+    padding: 14px 16px;
+    background: var(--eg-brand);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+}
+
+.drawer-body {
+    padding: 14px 16px;
+    overflow: auto;
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+}
+
+.close-btn, .open-btn {
+    appearance: none;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(10px);
+    color: var(--eg-ink);
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
+    transition: all 0.2s ease;
+}
+
+.close-btn:hover, .open-btn:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: var(--eg-brand);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+}
+
+.open-btn {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    z-index: 10;
+}
+
+.stage {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+    transition: margin-left .28s ease;
+}
+
+.layout.open .stage {
+    margin-left: var(--eg-drawer-w);
+}
+
+/* 이미지 배경과 테두리 제거 - 맵핑 위치는 건드리지 않음 */
+.img-wrap, .img-wrapper {
+    position: relative;
+    max-width: 100%;
+    justify-content: center;
+    margin-top: -60px;  /* 이 숫자를 조정하세요 */
+}
+
+.img-wrap img, .img-wrapper img {
+    display: block;
+    max-width: 70%;
+    height: auto;
+}
+
+/* Exercise list in drawer - 다크 테마 적용 + 정보 구분 */
+.ex-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ex-card {
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.ex-card:hover {
+    border-color: var(--eg-brand);
+    box-shadow: 0 12px 35px rgba(99, 102, 241, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 운동 이름 - 더 크고 굵게 */
+.ex-card h3 {
+    margin: 0 0 14px 0;
+    font-size: 24px;
+    font-weight: 900;
+    color: #f8fafc;
+    text-shadow: 0 2px 12px rgba(139, 92, 246, 0.4);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+/* 타겟 근육 정보 - 더 밝고 선명하게 */
+.ex-card .meta {
+    font-size: 15px;
+    color: #a78bfa;
+    font-weight: 800;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-shadow: 0 1px 4px rgba(167, 139, 250, 0.3);
+}
+
+/* 효과 설명 - 더 밝은 색상으로 */
+.ex-card div:not(.meta):not(.yt-preview):not(.yt-embed) {
+    color: #e2e8f0;
+    line-height: 1.7;
+    font-size: 14px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+/* 방법 설명을 구분하기 위한 스타일 - 더 선명하게 */
+.ex-card div:contains("효과:") {
+    color: #6ee7b7;
+    font-weight: 700;
+    background: rgba(110, 231, 183, 0.1);
+    padding: 6px 10px;
+    border-radius: 6px;
+    border-left: 3px solid #10d9a3;
+}
+
+.ex-card div:contains("방법:") {
+    color: #fcd34d;
+    font-weight: 600;
+    background: rgba(252, 211, 77, 0.15);
+    padding: 10px 14px;
+    border-radius: 10px;
+    border-left: 4px solid #f59e0b;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
+}
+
+.ex-card h3 .highlight {
+    font-weight: 900;
+    font-size: 1.1em;
+    color: #5eead4;
+    text-shadow: 0 0 12px rgba(94, 234, 212, 0.4);
+}
+
+/* 유튜브 프리뷰 관련 스타일 */
+.yt-embed {
+    position: relative;
+    aspect-ratio: 16/9;
+    border: 1px solid var(--eg-border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.yt-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.yt-preview {
+    position: relative;
+    aspect-ratio: 16/9;
+    border: 1px solid var(--eg-border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    margin-top: 8px;
+    background: #000;
+}
+
+.yt-thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.yt-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 0, 0, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.yt-play-button:hover {
+    background: rgba(255, 0, 0, 1);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.yt-play-button::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 20px solid white;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    margin-left: 4px;
+}
+
+.yt-preview iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.yt-preview:hover .yt-thumb {
+    opacity: 0.8;
+}
+
+@media (hover: none) {
+    .yt-preview:hover .yt-thumb {
+        opacity: 1;
+    }
+}
+
+/* Hotspot labels - 원래 그대로 유지 */
+.hotspot {
+    cursor: pointer;
+    z-index: 2;
+}
+
+.img-wrapper .hotspot {
+    border-radius: 50% / 50%;
+    clip-path: ellipse(50% 50% at 50% 50%);
+    position: absolute;
+    z-index: 2;
+}
+
+/* Z-index 시스템 */
+:root {
+    --eg-header-h: 64px;
+    --eg-oc-w: var(--bs-offcanvas-width, 360px);
+    --eg-z-header: 1100;
+    --eg-z-drawer: 1095;
+    --eg-z-backdrop: 1092;
+}
+
+#siteHeader, .navbar.fixed-top {
+    position: sticky;
+    top: 0;
+    z-index: var(--eg-z-header);
+}
+
+.drawer {
+    position: fixed;
+    top: var(--eg-header-h);
+    height: calc(100vh - var(--eg-header-h));
+    z-index: var(--eg-z-drawer);
+}
+
+.open-btn {
+    position: fixed;
+    right: 10px;
+    top: calc(var(--eg-header-h) + 10px);
+    z-index: var(--eg-z-drawer);
+}
+
+.offcanvas {
+    top: var(--eg-header-h) !important;
+    height: calc(100vh - var(--eg-header-h)) !important;
+    z-index: var(--eg-z-drawer) !important;
+}
+
+.offcanvas-backdrop {
+    top: var(--eg-header-h) !important;
+    height: calc(100vh - var(--eg-header-h)) !important;
+    z-index: var(--eg-z-backdrop) !important;
+}
+
+.stage {
+    position: relative;
+    z-index: 1;
+}
+
+.layout.open .stage {
+    margin-left: var(--eg-oc-w);
+}
+
+.stage [style*="z-index"],
+.stage .slick,
+.stage .carousel,
+.stage .modal {
+    z-index: 2 !important;
+}
+
+/* Z-index 시스템 */
+:root {
+    --eg-header-h: 64px;
+    --eg-oc-w: var(--bs-offcanvas-width, 360px);
+    --eg-z-header: 1100;
+    --eg-z-drawer: 1095;
+    --eg-z-backdrop: 1092;
+}
+
+#siteHeader, .navbar.fixed-top {
+    position: sticky;
+    top: 0;
+    z-index: var(--eg-z-header);
+}
+
+.drawer {
+    position: fixed;
+    top: var(--eg-header-h);
+    height: calc(100vh - var(--eg-header-h));
+    z-index: var(--eg-z-drawer);
+}
+
+.open-btn {
+    position: fixed;
+    top: calc(var(--eg-header-h) + 1rem);
+    z-index: var(--eg-z-drawer);
+}
+
+.offcanvas {
+    top: var(--eg-header-h) !important;
+    height: calc(100vh - var(--eg-header-h)) !important;
+    z-index: var(--eg-z-drawer) !important;
+}
+
+.offcanvas-backdrop {
+    top: var(--eg-header-h) !important;
+    height: calc(100vh - var(--eg-header-h)) !important;
+    z-index: var(--eg-z-backdrop) !important;
+}
+
+.stage {
+    position: relative;
+    z-index: 1;
+}
+
+.layout.open .stage {
+    margin-left: var(--eg-oc-w);
+}
+
+.stage [style*="z-index"],
+.stage .slick,
+.stage .carousel,
+.stage .modal {
+    z-index: 2 !important;
+}
+
+/* 스크롤바 - 미니멀한 스타일 */
+.drawer-body::-webkit-scrollbar {
+    width: 0.375rem;
+}
+
+.drawer-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.drawer-body::-webkit-scrollbar-thumb {
+    background: var(--bg-600);
+    border-radius: var(--radius-sm);
+}
+
+.drawer-body::-webkit-scrollbar-thumb:hover {
+    background: var(--text-500);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .stage {
+        padding: 1rem;
+    }
+    
+    .drawer {
+        width: min(90vw, 400px);
+    }
+    
+    .img-wrap, .img-wrapper {
+        padding: 1rem;
+    }
+    
+    .ex-card {
+        padding: 1rem;
+    }
+}
+
+/* 포커스 스타일 */
+.close-btn:focus-visible,
+.open-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* 다크모드 최적화 */
+@media (prefers-color-scheme: dark) {
+    body {
+        color-scheme: dark;
+    }
+}

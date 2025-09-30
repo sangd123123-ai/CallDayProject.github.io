@@ -1,0 +1,226 @@
+@charset "UTF-8";
+/* ======== 카드 리스트 디자인 ======== */
+
+.image-board-list {
+    display: flex;             /* 플렉스 컨테이너 설정 */
+    flex-wrap: wrap;           /* 카드가 넘치면 다음 줄로 */
+    gap: 30px;                 /* 카드 사이의 간격 (30px 기준) */
+    justify-content: center;   /* 카드들을 중앙 정렬 */
+    /* 900px 너비에 3개 카드가 중앙에 배치되도록 설정 */
+    width: 960px;              /* (300px * 3) + (30px * 2) = 960px */
+    max-width: 100%;           /* 화면이 작아지면 100%를 넘지 않도록 */
+    margin: 20px auto;
+}
+
+.card-item {
+    /* 카드 가로 크기 지정: 3개씩 배치되도록 300px로 고정 */
+    width: 300px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    height: 330px; /* 카드 높이 조정 */
+}
+
+.card-item:hover {
+    transform: translateY(-5px); /* 호버 시 살짝 위로 이동 */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-image-container {
+    height: 200px;
+    overflow: hidden;
+    background: #dcdcdc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 잘리지 않고 채우도록 설정 */
+}
+
+/* 이미지가 없을 때 중앙 아이콘 */
+.card-image-container .no-image-icon {
+    font-size: 50px;
+    color: #4CAF50;
+    opacity: 0.5;
+}
+
+.card-content {
+    padding: 15px;
+    overflow: hidden; 
+    flex-grow: 1;
+}
+
+.card-heading {
+    display: flex; /* 제목과 좋아요 하트를 가로로 배치 */
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18pt;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.board-subject {
+    flex-grow: 1;
+    min-width: 0; /* flexbox 내에서 overflow: hidden을 적용하기 위한 필수 설정 */
+    white-space: nowrap; 
+    overflow: hidden;
+    text-align: left; 
+    text-overflow: ellipsis;
+    font-size: 14pt; 
+}
+
+.card-description { /* 카드 내용 */
+    font-size: 10pt;
+    color: #666;
+    margin-bottom: 15px;
+    /* 내용이 길 경우 잘라내기 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 두 줄까지 표시 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 30px; /* 카드 내용 넣을 경우 최소 높이 확보 */
+}
+
+.card-action-btn { /* 'Action' 버튼 스타일 */
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #5b7ef7; /* 예시 이미지와 유사한 파란색 */
+    color: white;
+    font-size: 14pt;
+    text-align: center;
+    text-decoration: none; /* 링크 밑줄 제거 */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.card-action-btn:hover {
+    background-color: #4a6ce0;
+}
+
+/* 기존 좋아요 버튼 스타일 유지 */
+.heart {
+    cursor: pointer;
+    font-size: 18pt; /* 제목 옆에 어울리도록 크기 조정 */
+    margin-left: 10px;
+    white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+.liked {
+    color: red;
+}
+/* 좋아요 갯수 스타일 */
+.like-number {
+    font-size: 12pt;
+    color: #666;
+    margin-left: 5px;
+}
+
+/* post-actions는 이제 card-heading에서 사용 */
+.post-actions {
+    display: flex;
+    align-items: center;
+}
+
+/* --- 상단 검색 및 등록 버튼/인풋 디자인 추가 --- */
+
+.board-header {
+    display: flex;              /* flex 컨테이너 */
+    justify-content: space-between; /* 양쪽 배치 (좌: 검색창, 우: 등록 버튼) */
+    align-items: center;        /* 수직 가운데 정렬 */
+    width: 960px; 
+    max-width: 90%;
+    padding: 15px 0 0 0; 
+    margin: 0 auto 20px auto;   /* 중앙 정렬 및 아래쪽 여백 */
+}
+
+/* 왼쪽 영역(검색창) 스타일 */
+#leftHeader {
+    display: flex;
+    align-items: center;
+}
+
+#leftHeader form {
+    display: flex;
+    align-items: center;
+}
+
+/* 검색 폼 요소 (select, input[type="text"]) */
+#leftHeader select,
+#leftHeader input.textFiled {
+    padding: 8px 12px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px; /* 둥근 모서리 */
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #f9f9f9;
+}
+
+#leftHeader select:focus,
+#leftHeader input.textFiled:focus {
+    border-color: #0095f6; /* 인스타 블루 포커스 */
+    box-shadow: 0 0 0 3px rgba(0, 149, 246, 0.1);
+    outline: none;
+    background-color: #ffffff;
+}
+
+/* 검색 버튼 (btn2) */
+#leftHeader input.btn2 {
+    background-color: #0095f6; /* 인스타 스타일 파란색 */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+#leftHeader input.btn2:hover {
+    background-color: #007bb6;
+    transform: translateY(-1px);
+}
+
+/* 오른쪽 영역(게시물 등록) 스타일 */
+.article-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 게시물 등록 버튼 (btn) */
+.article-actions button.btn {
+    background-color: #667eea; /* 게시물 뱃지 그라데이션의 시작색과 유사하게 설정 */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    text-decoration: none;
+    box-shadow: none; 
+    outline: none;
+}
+
+.article-actions button.btn:hover {
+    background-color: #536bc4;
+    transform: translateY(-1px);
+}

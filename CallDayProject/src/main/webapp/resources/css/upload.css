@@ -1,0 +1,142 @@
+@charset "UTF-8";
+/* ========== 이미지 수정 게시판 =========== */
+
+/* 업로드 폼 스타일 개선 */
+.upload-form {
+    width: 600px; /* article과 동일한 너비 */
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 40px; /* 패딩 증가 */
+    border-radius: 20px; /* article과 동일한 둥근 모서리 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none;
+    background: #ffffff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08); /* article과 동일한 그림자 */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.upload-form h2, .upload-form h3 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 30px; /* 간격 증가 */
+    font-size: 24px; /* 폰트 크기 증가 */
+    font-weight: 600;
+    padding: 16px 24px; /* 패딩 증가 */
+    border: none;
+    border-radius: 16px; /* 더 둥근 모서리 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.upload-form h2 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* 그라데이션 배경 */
+}
+
+.upload-form h3 {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); /* 수정용 그라데이션 */
+}
+
+.upload-form label {
+    display: block;
+    margin-top: 25px; /* 간격 증가 */
+    margin-bottom: 8px; /* 간격 증가 */
+    font-weight: 600;
+    color: #333;
+    font-size: 15px;
+}
+
+/* 입력 필드 스타일 개선 */
+.upload-form input[type="text"],
+.upload-form textarea,
+.upload-form input[type="file"] {
+    width: 100%;
+    padding: 14px 16px; /* 패딩 증가 */
+    border: 2px solid #f0f0f0; /* 테두리 두께 증가 */
+    border-radius: 12px; /* 둥근 모서리 */
+    outline: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    background: #fafafa;
+    transition: all 0.2s ease;
+}
+
+.upload-form input[type="text"]:focus,
+.upload-form textarea:focus {
+    border-color: #667eea;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.upload-form textarea {
+    height: 120px; /* 높이 증가 */
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.upload-form input[type="file"] {
+    background: #ffffff;
+    cursor: pointer;
+}
+
+/* 버튼 스타일 개선 */
+.upload-form button[name="t1"] { /* 새 게시물 업로드 */
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.upload-form button[name="t1"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.upload-form button[name="t2"] { /* 수정 업로드 */
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+}
+
+.upload-form button[name="t2"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+}
+
+.upload-form button[name="t4"] { /* 취소 버튼 */
+    width: 100%;
+    margin-top: 15px; /* 간격 조정 */
+    padding: 16px;
+    background: linear-gradient(135deg, #a8a8a8 0%, #8e8e8e 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(168, 168, 168, 0.3);
+}
+
+.upload-form button[name="t4"]:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #9a9a9a 0%, #808080 100%);
+}

@@ -1,0 +1,258 @@
+@charset "UTF-8";
+
+:root{
+  --done-bg-1:#b7ff3c;
+  --done-bg-2:#79ff0f;
+  --done-ring:#46d326;
+  --done-text:#0a1206;
+  --today-ring:#00e5ff;
+}
+
+:root{
+  --hover-tint:        rgba(255,255,255,.16); /* 기존보다 밝게 */
+  --hover-tint-strong: rgba(255,255,255,.22); /* 마우스다운 등 더 진하게 */
+  --hover-ring:        rgba(255,255,255,.28);
+}
+
+/* ===== 레이아웃 안전장치: 헤더/푸터와 겹치지 않게 오프셋 + 최소 높이 ===== */
+.cdp-cal{
+  /* 필요에 따라 JSP에서 덮어쓰기: style="--cdp-header-h:72px; --cdp-footer-h:60px" */
+  --cdp-header-h: 72px;
+  --cdp-footer-h: 56px;
+  --tile: 68px;
+  --gap: 14px;
+
+  min-height: calc(100vh - var(--cdp-header-h) - var(--cdp-footer-h));
+  padding: calc(var(--cdp-header-h) - 8px) 12px calc(var(--cdp-footer-h) + 8px);
+  box-sizing: border-box;
+
+  /* 배경(딤 톤) */
+  background:
+    radial-gradient(1200px 600px at 50% -120px, rgba(255,255,255,.22), rgba(255,255,255,0)),
+    linear-gradient(180deg, #273449, #1a2434);
+  color:#e5e7eb;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* 카드 */
+.cdp-card{
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(17,24,39,.6);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+}
+
+/* 타이틀 */
+.cdp-title{ font-size: 38px; font-weight: 900; letter-spacing: .06em; text-align:center; margin: 2px 0 18px; }
+
+/* 툴바 */
+.cdp-toolbar{ display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin: 8px 0 16px; }
+.cdp-month{
+  width: 250px; padding: 8px 12px; border-radius: 12px; font-weight: 700; letter-spacing: .03em;
+  color:#e5e7eb; background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 4px 12px rgba(0,0,0,.12) inset, 0 2px 8px rgba(0,0,0,.12);
+}
+.cdp-btns{ display:flex; gap:10px; }
+
+/* 버튼(부트스트랩 .btn 과 겹치지 않도록 cdp-btn만 사용) */
+.cdp-btn{
+  padding: 10px 14px; border-radius: 12px; font-weight: 700;
+  border: 1px solid rgba(255,255,255,.18); color:#e5e7eb;
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(6px);
+  transition: background .2s ease, transform .06s ease, box-shadow .2s ease, border-color .2s ease;
+}
+/* ===== "이번달" 버튼 Hover/Focus 업그레이드 ===== */
+/* 기본 스타일은 그대로 두고, 아래가 더 아래에서 덮어쓰게 */
+.cdp-btn--primary:hover,
+.cdp-btn--primary:focus-visible{
+  /* 배경: 주황 그라디언트를 한 톤 밝게 */
+  background: linear-gradient(180deg, #fbbf24, #f59e0b);
+  /* 글자: 좀 더 또렷하게 + 살짝 자간 */
+  color:#0b1220;
+  font-weight: 900;          /* 700 → 900 (눈에 띄게) */
+  letter-spacing: .02em;
+  text-shadow: 0 1px 0 rgba(255,255,255,.45);
+
+  /* 살짝 커지고, 강조 그림자 */
+  transform: translateY(-1px) scale(1.02);
+  box-shadow:
+    0 12px 24px rgba(245,158,11,.35), /* 깊이감 */
+    0 0 0 3px rgba(245,158,11,.28);   /* 링 */
+
+  outline: none; /* 포커스 링은 box-shadow로 대체 */
+}
+
+/* 클릭 중 살짝 눌리는 느낌 */
+.cdp-btn--primary:active{
+  transform: translateY(0) scale(0.99);
+  filter: brightness(0.98);
+  box-shadow: 0 6px 14px rgba(245,158,11,.25);
+}
+
+/* 주의 펄스(is-attn)가 있는 상태에서 hover하면 펄스는 잠시 끔 */
+.cdp-btn.is-attn:hover,
+.cdp-btn.is-attn:focus-visible{
+  animation: none;
+}
+.cdp-btn--primary{
+  border: none; color: #0b1220;
+  background: linear-gradient(180deg, #f59e0b, #d97706);
+  box-shadow: 0 6px 14px rgba(245,158,11,.22);
+}
+.cdp-btn--primary:hover{ filter:brightness(1.05); box-shadow: 0 10px 22px rgba(245,158,11,.28); }
+.cdp-btn--ghost{ /* 기본 그대로 */ }
+@keyframes cdp-pulse{ 0%{ box-shadow:0 0 0 0 rgba(245,158,11,.35);} 100%{ box-shadow:0 0 0 12px rgba(245,158,11,0);} }
+.cdp-btn.is-attn{ animation: cdp-pulse 1.6s ease-out infinite; }
+
+/* 요일/그리드(고정 폭 7칸 + 중앙 정렬 → 쏠림 방지) */
+.cdp-weekdays,
+.cdp-grid{
+  display:grid;
+  grid-template-columns: repeat(7, var(--tile));
+  justify-content:center;
+  column-gap: var(--gap);
+  row-gap: var(--gap);
+}
+.cdp-weekdays{ margin: 12px 0 6px; }
+.cdp-weekday{
+  width: var(--tile); height: 24px;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; letter-spacing:.05em; color:#9aa3b2;
+}
+
+/* 날짜 셀 */
+.cdp-grid{ list-style:none; padding:0; margin:0; }
+.cdp-day{ width: var(--tile); height: var(--tile); display:flex; align-items:center; justify-content:center; }
+.cdp-day.is-out{ opacity:.35; }
+
+.cdp-daynum{
+  position: relative; overflow: hidden;
+  display:flex; align-items:center; justify-content:center;
+  width: var(--tile); height: var(--tile);
+  border-radius: 18px; background:#e9f0f7; color:#1f2937; font-weight:800;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,.06), 0 4px 10px rgba(0,0,0,.16);
+}
+
+/* 완료: 민트 틴트 + 얇은 인너라인 */
+.cdp-daynum.is-done{
+  box-shadow: inset 0 0 0 999px rgba(20,184,166,.14), 0 4px 10px rgba(0,0,0,.18);
+}
+
+.cdp-daynum.is-done::before{
+  content:""; position:absolute; inset:6px; border-radius:14px; border:1.5px solid #14b8a6; pointer-events:none;
+}
+
+/* 오늘: 주황 링(바깥) + 점(안쪽) — 옆 칸 침범 X */
+.cdp-daynum.is-today{ position: relative; outline: 0; box-shadow: none; z-index: 1; overflow: visible; }
+.cdp-daynum.is-today::before{
+  content:""; position:absolute; top:-4px; left:-4px; width:calc(100% + 8px); height:calc(100% + 8px);
+  border-radius:22px; border:2px solid #f59e0b; box-shadow: 0 0 0 6px rgba(245,158,11,.18); pointer-events:none;
+}
+.cdp-daynum.is-today::after{
+  content:""; position:absolute; top:8px; right:8px; width:6px; height:6px; border-radius:50%;
+  background:#f59e0b; box-shadow: 0 1px 2px rgba(0,0,0,.25); pointer-events:none;
+}
+
+/* 둘 다일 때: 내부는 완료 틴트, 바깥 링은 오늘 */
+.cdp-daynum.is-done.is-today{ box-shadow: inset 0 0 0 999px rgba(20,184,166,.14), 0 4px 10px rgba(0,0,0,.18); }
+
+/* 1) 툴바가 어떤 오버레이보다 위에 오게 (클릭 방해 차단) */
+.cdp-toolbar{
+  position: relative;
+  z-index: 20;
+}
+
+/* 2) 이전/다음: 고스트 액션을 우선순위 높여서 '항상' 적용되게 */
+.cdp-toolbar .cdp-btn--ghost{
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #e5e7eb;
+  transition: background .2s ease, transform .06s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+/* ─ hover/focus-visible: 더 밝은 배경 + 살짝 확대 + 그림자 (눈에 띄게) */
+.cdp-toolbar .cdp-btn--ghost:hover,
+.cdp-toolbar .cdp-btn--ghost:focus-visible{
+  background: rgba(255,255,255,.14);
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 10px 20px rgba(0,0,0,.24);
+  outline: none;
+}
+
+/* ─ active: 눌림감 */
+.cdp-toolbar .cdp-btn--ghost:active{
+  transform: translateY(0) scale(0.99);
+  box-shadow: 0 6px 14px rgba(0,0,0,.20);
+}
+
+/* 완료 숫자 타일 */
+.cdp-daynum.is-done{
+  background: linear-gradient(180deg, var(--done-bg-1), var(--done-bg-2));
+  color: var(--done-text);
+  box-shadow:
+    inset 0 0 0 999px rgba(20,184,166,.08),
+    0 10px 24px rgba(0,0,0,.22);
+  transform: translateY(-1px) scale(1.02);
+}
+.cdp-daynum.is-done::before{ border-color: var(--done-ring); }
+
+/* 오늘(기존 스타일 유지 + 링 색만 변수화) */
+.cdp-daynum.is-today::before{ border-color: var(--today-ring); }
+
+/* 완료 배지(옵션 B 쓰는 중이면 같이 색 동기화) */
+.cdp-day.is-done-day::after{
+  background: var(--done-bg-2);
+  color: var(--done-text);
+  box-shadow: 0 2px 6px rgba(0,0,0,.25), 0 0 0 2px color-mix(in srgb, var(--done-bg-2) 40%, transparent);
+}
+
+/* 살짝 기분좋은 반짝 */
+@keyframes cdp-done-pop{ 
+  0%{ transform:scale(.96); box-shadow:0 0 0 0 rgba(16,185,129,.35) }
+  70%{ transform:scale(1.03); box-shadow:0 0 0 10px rgba(16,185,129,0) }
+  100%{ transform:scale(1.02) }
+}
+.cdp-daynum.is-done{ animation: cdp-done-pop .45s ease-out 1; }
+
+/* 호버/포커스 톤 살짝 */
+.cdp-day:hover .cdp-daynum{ background-color: var(--hover-tint); }
+
+.cdp-legend{
+  display:flex; gap:16px; justify-content:center;
+  margin: 6px 0 10px; color:#9aa3b2; font-size:12px; line-height:1;
+}
+.cdp-legend .lg{
+  display:inline-block; width:14px; height:14px; border-radius:4px;
+  margin-right:6px; vertical-align:-2px;
+}
+/* 완료(완료 타일과 같은 톤) */
+.cdp-legend .lg--done{
+  background: linear-gradient(180deg, var(--done-bg-1, #34d399), var(--done-bg-2, #10b981));
+  box-shadow: inset 0 0 0 1.5px var(--done-ring, #0ea5a3);
+}
+/* 오늘(오늘 링 톤과 매칭) */
+.cdp-legend .lg--today{
+  background:#e9f0f7; border-radius:6px;
+  box-shadow: 0 0 0 2px var(--today-ring, #f59e0b);
+}
+
+.cdp-grid .cdp-day:not(.is-out):not(.is-done-day):hover .cdp-daynum:not(.is-today):not(.is-done){
+  background-color: var(--hover-tint);
+  box-shadow: 0 0 0 2px var(--hover-ring) inset;
+}
+
+/* 클릭(press) 시 한 톤 더 */
+.cdp-grid .cdp-day:not(.is-out):not(.is-done-day):active .cdp-daynum:not(.is-today):not(.is-done){
+  background-color: var(--hover-tint-strong);
+}
+
+/* 키보드 포커스 접근성 */
+.cdp-grid .cdp-day .cdp-daynum:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px var(--hover-ring), 0 6px 16px rgba(0,0,0,.25);
+}
