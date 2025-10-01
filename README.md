@@ -38,6 +38,7 @@
 ## 📖 목차
 - [프로젝트 소개](#-프로젝트-소개)
 - [메인 & 사용자 화면](#-메인--사용자-화면)
+- [피드형 게시판](#-피드형-게시판)
 - [캘린더 & 체중 관리](#-캘린더--체중-관리)
 - [운동 가이드 & AI](#-운동-가이드--ai)
 - [관리자 페이지](#-관리자-페이지)
@@ -79,6 +80,27 @@
 
 ---
 
+## 📜 피드형 게시판
+
+<details>
+<summary><b>이미지 보기</b></summary><br>
+
+![운동피드](/capture/운동피드.JPG "운동피드")
+<div align="center"><h3>운동피드</h3></div>
+
+![게시글](/capture/운동피드_아티클.JPG "게시글")
+<div align="center"><h3>게시글</h3></div>
+
+![게시글작성](/capture/imgcreated.jpg "게시글작성")
+<div align="center"><h3>게시글작성</h3></div>
+
+![게시글수정](/capture/imgupdate.jpg "게시글수정")
+<div align="center"><h3>게시글수정</h3></div>
+
+</details>
+
+---
+
 ## 📅 캘린더 & 체중 관리
 
 <details>
@@ -110,18 +132,6 @@
 
 ![운동등록](/capture/운동%20플래너.jpg "운동등록")
 <div align="center"><h3>운동플래너</h3></div>
-
-![운동피드](/capture/운동피드.JPG "운동피드")
-<div align="center"><h3>운동피드</h3></div>
-
-![게시글](/capture/운동피드_아티클.JPG "게시글")
-<div align="center"><h3>게시글</h3></div>
-
-![게시글작성](/capture/imgcreated.jpg "게시글작성")
-<div align="center"><h3>게시글작성</h3></div>
-
-![게시글수정](/capture/imgupdate.jpg "게시글수정")
-<div align="center"><h3>게시글수정</h3></div>
 
 ![AI식단](/capture/AI식단%20추천.jpg "AI식단")
 <div align="center"><h3>AI 식단 추천</h3></div>
