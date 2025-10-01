@@ -85,8 +85,8 @@
 <details>
 <summary><b>이미지 보기</b></summary><br>
 
-![운동피드](/capture/운동피드.JPG "운동피드")
-<div align="center"><h3>운동피드</h3></div>
+![게시판](/capture/운동피드.JPG "게시판")
+<div align="center"><h3>게시판</h3></div>
 
 ![게시글](/capture/운동피드_아티클.JPG "게시글")
 <div align="center"><h3>게시글</h3></div>
