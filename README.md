@@ -2,10 +2,10 @@
 
 <div align="center">
   
-  <h2>실제 프로젝트 구성 부분</h2>
+  <h2>프로젝트 기술 스택</h2>
   
   <!-- 간단 배지: 자유롭게 수정/삭제 -->
-  <img alt="Java" src="https://img.shields.io/badge/Java-17+-blue">
+  <img alt="Java" src="https://img.shields.io/badge/Java-8+-blue">
   <img alt="Spring MVC" src="https://img.shields.io/badge/Spring-MVC-green">
   <img alt="Oracle" src="https://img.shields.io/badge/DB-Oracle-red">
   <img alt="Build" src="https://img.shields.io/badge/Build-Maven-purple">
