@@ -29,7 +29,22 @@
 </div>
 
 ![메인화면](/capture/메인화면.JPG "메인화면")
+<div align="center">
+
+  <h3>메인 화면</h3>
+
+</div>
 
 ![로그인창](/capture/로그인창.jpg "로그인창")
+<div align="center">
 
+  <h3>로그인</h3>
 
+</div>
+
+![내정보](/capture/내정보페이지.jpg "내정보")
+<div align="center">
+
+  <h3>내정보</h3>
+
+</div>
