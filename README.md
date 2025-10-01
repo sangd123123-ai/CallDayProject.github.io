@@ -91,14 +91,14 @@
 
 </div>
 
-![게시글작성](/capture/imgcreated.JPG "게시글작성")
+![게시글작성](/capture/imgcreated.jpg "게시글작성")
 <div align="center">
 
   <h3>게시글작성</h3>
 
 </div>
 
-![게시글수정](/capture/imgupdate.JPG "게시글수정")
+![게시글수정](/capture/imgupdate.jpg "게시글수정")
 <div align="center">
 
   <h3>게시글수정</h3>
