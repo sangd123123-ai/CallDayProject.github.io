@@ -155,7 +155,7 @@
 
 ---
 
-## 📌 역할/ERD/기술 스택
+## 📌 역할/ERD/소개 프레젠테이션
 
 <details>
 <summary><b>슬라이드 보기</b></summary><br>
