@@ -42,9 +42,31 @@
 
 </div>
 
+![회원가입](/capture/회원가입창.JPG "회원가입")
+<div align="center">
+
+  <h3>회원가입</h3>
+
+</div>
+
 ![내정보](/capture/내정보페이지.JPG "내정보")
 <div align="center">
 
   <h3>내정보</h3>
 
 </div>
+
+![운동가이드](/capture/운동%20가이드.JPG "운동가이드")
+<div align="center">
+
+  <h3>운동가이드</h3>
+
+</div>
+
+![운동등록](/capture/운동%20플래너.JPG "운동등록")
+<div align="center">
+
+  <h3>운동플래너</h3>
+
+</div>
+
