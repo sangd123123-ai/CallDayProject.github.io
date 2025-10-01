@@ -42,7 +42,7 @@
 
 </div>
 
-![내정보](/capture/내정보페이지.jpg "내정보")
+![내정보](/capture/내정보페이지.JPG "내정보")
 <div align="center">
 
   <h3>내정보</h3>
