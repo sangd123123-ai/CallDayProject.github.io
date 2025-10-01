@@ -33,11 +33,11 @@
       <sub>직관적인 UI로 모든 기능에 빠르게 접근</sub>
     </td>
     <td width="33%" align="center">
-      <img src="/capture/운동%20플래너.jpg" alt="운동플래너" width="100%">
+      <img src="/capture/AI식단%20추천.jpg" alt="AI식단" width="100%">
       <br>
-      <strong>📋 운동 플래너</strong>
+      <strong>🤖 AI 식단 추천</strong>
       <br>
-      <sub>맞춤형 운동 계획 수립 및 관리</sub>
+      <sub>맞춤형 AI 식단 추천</sub>
     </td>
     <td width="33%" align="center">
       <img src="/capture/관리자페이지.JPG" alt="관리자페이지" width="100%">
