@@ -381,7 +381,7 @@ Git & GitHub
 
 ### 💪 지금 바로 시작하세요!
 
-**건강한 일상, CallDayProject와 함께**
+**건강한 일상, CallDay와 함께**
 
 <br>
 
