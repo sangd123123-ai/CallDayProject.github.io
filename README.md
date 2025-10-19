@@ -84,6 +84,58 @@
 
 ---
 
+## 👤 담당 역할
+
+### 🏠 1. 메인 페이지 구현
+- 메인 페이지 UI/UX 설계 및 반응형 레이아웃 구성
+- Bootstrap5, Slick Carousel 등을 활용한 슬라이더/배너 영역 구성
+- JavaScript로 동적 콘텐츠(운동/상품 카드) 표시 로직 구현
+
+### 🛠 2. 관리자 페이지 개발
+- 관리자 전용 로그인 및 접근 제어 설정 (Spring Security 기반)
+- 슬라이더 관리 CRUD 기능 (이미지 업로드, 수정, 삭제)
+- 스토어 상품 관리 기능 (상품 등록, 수정, 삭제)
+- 관리자 대시보드 구성 (회원 수, 방문자 로그, 좋아요 통계 등 표시)
+- MyBatis로 DAO 계층 설계 및 Oracle DB 연동
+
+### 🔐 3. 로그인 및 OAuth2 기능
+- 일반 로그인(Spring Security + BCrypt) 구현
+- **카카오, 네이버 OAuth2 로그인** 연동 및 사용자 정보 처리
+- 로그인 후 세션 관리 및 권한 부여 로직 구현
+
+---
+
+## ⚙️ 사용 기술 스택
+
+| 구분 | 기술 |
+|------|------|
+| **Frontend** | HTML5, CSS3, JavaScript, Bootstrap5, jQuery |
+| **Backend** | Java, Spring Framework, Spring Security, MyBatis |
+| **Database** | Oracle XE |
+| **ETC** | OAuth2, GitHub, Eclipse, SQL Developer |
+
+---
+
+## 💬 협업 및 문제 해결 경험
+- 로그인 보안 구조 설계 중 세션 충돌 이슈 발생 시, 필터 체인 순서를 조정하여 해결  
+- 기능 구현 방향이 엇갈린 상황에서도 감정적으로 반응하지 않고, **이성적으로 문제 원인을 정리해 조율**  
+- Git을 통한 버전 관리 및 코드 병합 충돌 해결 경험  
+- 협업을 통해 **기술보다 소통이 프로젝트 완성의 핵심**임을 체득  
+
+---
+
+## 🪄 배운 점
+- 백엔드 구조와 프론트엔드의 연결 과정을 명확히 이해하게 되었으며,  
+  실무 환경에서 유지보수성과 확장성을 고려한 설계의 중요성을 깨달음.  
+- OAuth2 및 Security 설정을 직접 구성하며 **인증·인가 체계 전반에 대한 실질적 이해**를 쌓음.  
+
+---
+
+📎 **프로젝트 저장소:**  
+[https://github.com/sangd123123-ai/CallDayProject.github.io](https://github.com/sangd123123-ai/CallDayProject.github.io)
+
+---
+
 ## 🎯 주요 기능
 
 ### 🏠 메인 & 사용자 화면
