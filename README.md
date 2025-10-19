@@ -80,7 +80,81 @@
 - 🤖 **AI 기반 추천**: 개인 맞춤형 식단 추천 시스템
 
 ---
-<img width="707" height="604" alt="image" src="https://github.com/user-attachments/assets/d46a74e3-cf07-4c82-b5ac-1acc69aba690" />
+# 🩺 CallDay Project (개인 포트폴리오 버전)
+
+건강관리 웹서비스 **CallDay**는 사용자의 운동, 체중, 식단, 쇼핑 기능을 통합한 웹 헬스케어 플랫폼입니다.  
+본 저장소는 5인 팀 프로젝트 중 **제가 직접 담당한 개발 파트(Main / Admin / OAuth2)** 중심으로 정리한 개인 포트폴리오 버전입니다.
+
+---
+
+## 📌 프로젝트 개요
+- **프로젝트명:** CallDay (건강관리 웹 플랫폼)
+- **진행기간:** 2025.08 ~ 2025.09
+- **팀 구성:** 5인 (기획 1 / 백엔드 2 / 프론트엔드 2)
+- **개발 환경:** Spring Framework + Oracle + JavaScript 기반  
+- **주요 목표:** 사용자 건강 기록, 운동 정보, 쇼핑몰, 관리자 기능 통합
+
+---
+
+## ⚙️ 기술 스택
+
+| 구분 | 기술 |
+|------|------|
+| **Frontend** | HTML5, CSS3, JavaScript, jQuery, Bootstrap5, Slick Carousel |
+| **Backend** | Java, Spring Framework, Spring Security, MyBatis, JPA |
+| **Database** | Oracle XE |
+| **ETC** | OAuth2 (Kakao / Naver), ApexCharts, GitHub, Eclipse, SQL Developer |
+
+---
+
+## 👤 담당 역할
+
+### 🏠 1. 메인 페이지 구현
+- 메인 페이지 UI/UX 설계 및 반응형 레이아웃 구성  
+- Bootstrap5, Slick Carousel 등을 활용한 슬라이더/배너 영역 구성  
+- JavaScript로 동적 콘텐츠(운동/상품 카드) 표시 로직 구현  
+- **MyBatis + JPA 병행 사용으로 데이터 호출 구조 최적화 및 성능 비교 경험**
+
+---
+
+### 🛠 2. 관리자 페이지 개발
+- 관리자 전용 로그인 및 접근 제어 설정 (Spring Security 기반)  
+- 슬라이더 관리 CRUD 기능 (이미지 업로드, 수정, 삭제)  
+- 스토어 상품 관리 기능 (상품 등록, 수정, 삭제)  
+- **ApexCharts를 활용한 관리자 통계 시각화 구현 (회원 수, 방문자 로그, 좋아요 통계 등)**  
+- MyBatis + JPA 병행으로 DAO와 Entity 설계 및 DB 연동
+
+---
+
+### 🔐 3. 로그인 및 OAuth2 기능
+- 일반 로그인(Spring Security + BCrypt) 구현  
+- 카카오, 네이버 OAuth2 로그인 연동 및 사용자 정보 처리  
+- 로그인 후 세션 관리 및 권한 부여 로직 구현  
+- OAuth2 클라이언트 설정, Redirect URI 처리, 사용자 DB 연동 경험  
+
+---
+
+## 💬 협업 및 문제 해결 경험
+- 기능 구현 방향 충돌 시, 감정적 대응 대신 **문제의 원인을 정리하고 이성적으로 조율**  
+- Git을 통한 버전 관리 및 병합 충돌 해결 경험  
+- 백엔드-프론트엔드 간 데이터 연동 시, RESTful 구조와 요청 흐름을 명확히 이해  
+- 협업 과정에서 **“기술보다 커뮤니케이션이 프로젝트 완성의 핵심”**임을 체감
+
+---
+
+## 🌱 배운 점
+- MyBatis와 JPA를 병행하며 SQL 중심 접근과 ORM 접근의 차이를 실무적으로 경험  
+- OAuth2 및 Security 설정을 직접 구성하며 인증/인가의 흐름을 명확히 이해  
+- 프론트엔드와 백엔드의 데이터 흐름을 직접 연결하며 전체 시스템 구조 설계 감각을 향상  
+
+---
+
+📎 **프로젝트 저장소:**  
+[https://github.com/sangd123123-ai/CallDayProject.github.io](https://github.com/sangd123123-ai/CallDayProject.github.io)
+
+> ※ 본 프로젝트는 팀 협업으로 진행되었으며, 본 저장소는 개인 포트폴리오용으로  
+> **제가 직접 개발한 메인 페이지, 관리자 페이지, 로그인(OAuth2) 파트** 중심으로 구성되어 있습니다.
+
 
 
 ---
